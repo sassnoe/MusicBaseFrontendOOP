@@ -5,8 +5,8 @@ export default class AlbumRenderer extends ItemRenderer {
     const html = /*HTML*/ `
 
     <td>${album.title}</td>
-    <td>${album.releaseYear}</td>
     <td>${album.artist}</td>
+    <td>${album.releaseYear}</td>
     `;
 
     return super.render(html);
