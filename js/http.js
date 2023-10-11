@@ -1,6 +1,7 @@
 // const endpoint = `https://codequest-node.azurewebsites.net/`;
 import Albums from "./model/albums.js";
 import Artists from "./model/artists.js";
+import Tracks from "./model/tracks.js";
 
 const port = 3333;
 const endpoint = `http://localhost:${port}`;
@@ -23,4 +24,12 @@ async function getAlbums() {
   return albumsList;
 }
 
-export { getArtists, getAlbums };
+async function getTracks() {
+  const response = await fetch(`${endpoint}/tracks`);
+  const objects = await response.json();
+  const trackList = objects.map((jsonObj) => new Tracks(jsonObj))
+  
+  return trackList;
+}
+
+export { getArtists, getAlbums, getTracks };
