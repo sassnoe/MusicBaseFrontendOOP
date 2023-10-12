@@ -1,5 +1,7 @@
 // const endpoint = `https://codequest-node.azurewebsites.net/`;
+import Albums from "./model/albums.js";
 import Artists from "./model/artists.js";
+import Tracks from "./model/tracks.js";
 
 const port = 3333;
 const endpoint = `http://localhost:${port}`;
@@ -42,3 +44,30 @@ export { searchDatabase, findAlbumsByArtist, findTracksByAlbum };
 // }
 
 // export { getArtists };
+async function getArtists() {
+  const response = await fetch(`${endpoint}/artists`);
+  const objects = await response.json();
+  //   console.log(req);
+  const artistsList = objects.map((jsonObj) => new Artists(jsonObj));
+  console.log(artistsList);
+  return artistsList
+}
+
+async function getAlbums() {
+  const response = await fetch(`${endpoint}/albums`);
+  const objects = await response.json();
+  //   console.log(req);
+  const albumsList = objects.map((jsonObj) => new Albums(jsonObj));
+  // console.log(albumsList);
+  return albumsList;
+}
+
+async function getTracks() {
+  const response = await fetch(`${endpoint}/tracks`);
+  const objects = await response.json();
+  const trackList = objects.map((jsonObj) => new Tracks(jsonObj))
+  
+  return trackList;
+}
+
+// export { getArtists, getAlbums, getTracks };

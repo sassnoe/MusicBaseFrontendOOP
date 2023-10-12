@@ -1,8 +1,16 @@
+import { secondsToMinutesAndSeconds } from '../helpers.js';
+
 export default class Tracks {
   constructor(obj) {
     this.title = obj.title;
     this.durationSeconds = obj.durationSeconds;
-    this.artist = obj.artist
+    this.artistName = obj.artistName
+  }
+  set durationSeconds(seconds) {
+    this._durationSeconds = secondsToMinutesAndSeconds(seconds);
+  }
+  get durationSeconds() {
+    return this._durationSeconds;
   }
 
   get duration(){
@@ -19,3 +27,4 @@ export default class Tracks {
     return formattedTime;
   }
 }
+
