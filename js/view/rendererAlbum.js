@@ -2,7 +2,7 @@ import ItemRenderer from "./itemrenderer.js";
 
 export default class AlbumRenderer extends ItemRenderer {
   render(album) {
-    // console.log(album);
+
     const html = /*HTML*/ `
 
     <td>${album.title}</td>
@@ -11,6 +11,6 @@ export default class AlbumRenderer extends ItemRenderer {
     `;
 
     return super.render(html);
-    // return html;
+
   }
 }

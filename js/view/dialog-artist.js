@@ -1,12 +1,8 @@
 export default class ArtistDialog {
   constructor(id) {
-    this.dialog.id = id;
-    this.dialog = document.createElement("dialog");
-    document.querySelector("main").insertAdjacentHTML("beforeend", this.dialog);
+    super(id)
   }
-  show() {
-    this.dialog.showModal();
-  }
+
   render() {
     const html = /*html*/ ``;
   }

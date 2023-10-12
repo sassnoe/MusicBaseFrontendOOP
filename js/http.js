@@ -32,25 +32,13 @@ async function findTracksByAlbum(whereToSearch, searchID) {
   return tracksData;
 }
 
-export { searchDatabase, findAlbumsByArtist, findTracksByAlbum };
-
-// async function getArtists() {
-//   const response = await fetch(`${endpoint}/artists`);
-//   const objects = await response.json();
-//   //   console.log(req);
-//   const artistsList = objects.map((jsonObj) => new Artists(jsonObj));
-//   console.log(artistsList);
-//   return artistsList;
-// }
-
-// export { getArtists };
 async function getArtists() {
   const response = await fetch(`${endpoint}/artists`);
   const objects = await response.json();
   //   console.log(req);
   const artistsList = objects.map((jsonObj) => new Artists(jsonObj));
   console.log(artistsList);
-  return artistsList
+  return artistsList;
 }
 
 async function getAlbums() {
@@ -65,9 +53,9 @@ async function getAlbums() {
 async function getTracks() {
   const response = await fetch(`${endpoint}/tracks`);
   const objects = await response.json();
-  const trackList = objects.map((jsonObj) => new Tracks(jsonObj))
-  
+  const trackList = objects.map((jsonObj) => new Tracks(jsonObj));
+
   return trackList;
 }
 
-// export { getArtists, getAlbums, getTracks };
+export { getArtists, getAlbums, getTracks, searchDatabase, findAlbumsByArtist, findTracksByAlbum };

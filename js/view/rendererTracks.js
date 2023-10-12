@@ -8,6 +8,6 @@ export default class TrackRenderer extends ItemRenderer {
     <td>${track.artistName}</td>
     <td>${track.durationSeconds}</td>`;
 
-    return html;
+    return super.render(html);
   }
 }
