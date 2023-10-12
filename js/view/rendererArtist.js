@@ -7,8 +7,8 @@ export default class ArtistRenderer extends ItemRenderer {
     <td>${artist.name}</td>
     <td>${artist.birthdate}</td>
     `;
-    
-    return super.render(html)
+
+    return super.render(html, artist._id);
     // return html;
   }
 }

@@ -35,6 +35,7 @@ async function findTracksByAlbum(whereToSearch, searchID) {
 async function getArtists() {
   const response = await fetch(`${endpoint}/artists`);
   const objects = await response.json();
+  console.log(objects);
   //   console.log(req);
   const artistsList = objects.map((jsonObj) => new Artists(jsonObj));
   console.log(artistsList);
