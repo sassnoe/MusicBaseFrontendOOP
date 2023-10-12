@@ -34,10 +34,10 @@ export default class ListRenderer {
   }
 
   hide() {
-    this._container.hidden = true;
+    this._container.parentElement.hidden = true;
   }
 
   show() {
-    this._container.hidden = false;
+    this._container.parentElement.hidden = false;
   }
 }

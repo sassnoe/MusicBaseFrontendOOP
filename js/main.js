@@ -3,6 +3,7 @@ import ListRenderer from "./view/listrenderer.js";
 import ArtistRenderer from "./view/rendererArtist.js";
 import AlbumRenderer from "./view/rendererAlbum.js";
 import TrackRenderer from "./view/rendererTracks.js";
+import CreateElement from "./view/dialogs/dialog-create.js";
 
 window.addEventListener("load", initApp);
 
@@ -15,7 +16,11 @@ let albumsList;
 let tracks = [];
 let tracksList;
 
-  const allLists = new Map();
+const allLists = new Map();
+
+let createDialog;
+let deleteDialog;
+let updateDialog;
 
 async function initApp() {
   addEventListeners();
@@ -25,6 +30,7 @@ async function initApp() {
   albums = await getAlbums();
   tracks = await getTracks();
   initView();
+  initDialogs()
 }
 
 function initView() {
@@ -45,10 +51,10 @@ function initView() {
 function addEventListeners(params) {
   document.querySelector("#searchBar").addEventListener("keydown", handleSearchAndFilter);
   document.querySelector("#tableSelect").addEventListener("change", handleSearchAndFilter);
+  document.querySelectorAll(".create-btn").forEach((btn) => btn.addEventListener("click", createNewClicked));
 }
 
 function handleSearchAndFilter(params) {
-
   const searchValue = document.querySelector("#searchBar").value;
   const filterValue = document.querySelector("#tableSelect").value;
 
@@ -68,13 +74,30 @@ function handleSearchAndFilter(params) {
 function itemClicked(event) {
   console.log("event", event.target.parentElement.parentElement);
   const idToLookFor = event.target.parentElement.id;
-  const whereToLook = event.target.parentElement.parentElement.id.split("-")[0]
-  console.log("where to look:",whereToLook);
-  console.log("all lists:",allLists);
-  const correctList = allLists.get(whereToLook)
+  const whereToLook = event.target.parentElement.parentElement.id.split("-")[0];
+  console.log("where to look:", whereToLook);
+  console.log("all lists:", allLists);
+  const correctList = allLists.get(whereToLook);
   console.log(correctList);
-  const entryToUse = correctList._list.find(ele => ele._id == idToLookFor)
-  console.log("FOUND ENTRY:",entryToUse);
+  const entryToUse = correctList._list.find((ele) => ele._id == idToLookFor);
+  console.log("FOUND ENTRY:", entryToUse);
 }
+
+function initDialogs(params) {
+  updateDialog = new CreateElement("update")
+  createDialog = new CreateElement("create")
+  deleteDialog = new CreateElement("delete");
+}
+
+function createNewClicked(event) {
+  // console.log(event.target);
+  // const thingToCreate = event.target.id.split("-")[1] + "-create";
+  // console.log("THING TO CREATE:", thingToCreate);
+  // const dialog = new CreateElement(thingToCreate);
+  // console.log(dialog);
+  createDialog.render();
+}
+
+// createNewClicked()
 
 export { itemClicked };

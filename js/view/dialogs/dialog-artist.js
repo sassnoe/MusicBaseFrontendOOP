@@ -1,4 +1,6 @@
-export default class ArtistDialog {
+import Dialog from "../dialog-SUPER";
+
+export default class ArtistDialog extends Dialog {
   constructor(id) {
     super(id)
   }
