@@ -18,11 +18,9 @@ export default class ListRenderer {
     for (const item of filteredList) {
       const html = this._itemRenderer.render(item);
       this._tbody.insertAdjacentHTML("beforeend", html);
-      this._tbody.querySelector("tr:last-child").addEventListener("click", itemClicked);
+      this._tbody.querySelector("tr:last-child").addEventListener("click", () => itemClicked(item, this._name));
     }
   }
-
-
 
   search(searchValue) {
     this._searchValue = searchValue;

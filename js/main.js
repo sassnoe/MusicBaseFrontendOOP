@@ -71,16 +71,15 @@ function handleSearchAndFilter(params) {
   }
 }
 
-function itemClicked(event) {
-  console.log("event", event.target.parentElement.parentElement);
-  const idToLookFor = event.target.parentElement.id;
-  const whereToLook = event.target.parentElement.parentElement.id.split("-")[0];
-  console.log("where to look:", whereToLook);
-  console.log("all lists:", allLists);
-  const correctList = allLists.get(whereToLook);
-  console.log(correctList);
-  const entryToUse = correctList._list.find((ele) => ele._id == idToLookFor);
-  console.log("FOUND ENTRY:", entryToUse);
+function itemClicked(item, name) {
+  console.log("item",item);
+  console.log("name",name);
+
+  // const idToLookFor = event.target.parentElement.id;
+  // const whereToLook = event.target.parentElement.parentElement.id.split("-")[0];
+
+  // const correctList = allLists.get(whereToLook);
+  // const entryToUse = correctList._list.find((ele) => ele._id == idToLookFor);
 }
 
 function initDialogs(params) {
