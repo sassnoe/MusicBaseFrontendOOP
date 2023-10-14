@@ -1,12 +1,15 @@
-import { getArtists, getAlbums, getTracks } from "./http.js";
+import { getArtists, getAlbums, getTracks, createTrack, createArtist, createAlbum } from "./http.js";
 import ListRenderer from "./view/listrenderer.js";
 import ArtistRenderer from "./view/rendererArtist.js";
 import AlbumRenderer from "./view/rendererAlbum.js";
 import TrackRenderer from "./view/rendererTracks.js";
+import { ArtistCreate, ArtistUpdate, ArtistDelete, ArtistDetails } from "./view/dialogs/specific-dialogs/dialog-artist.js";
+import { AlbumCreate, AlbumUpdate, AlbumDelete, AlbumDetails } from "./view/dialogs/specific-dialogs/dialog-album.js";
+import { TrackCreate, TrackUpdate, TrackDelete, TrackDetails } from "./view/dialogs/specific-dialogs/dialog-track.js";
 import CreateDialog from "./view/dialogs/general-dialogs/dialog-create.js";
-import {ArtistCreate, ArtistUpdate, ArtistDelete, ArtistDetails} from "./view/dialogs/specific-dialogs/dialog-artist.js"
-import {AlbumCreate, AlbumUpdate, AlbumDelete, AlbumDetails} from "./view/dialogs/specific-dialogs/dialog-album.js"
-import {TrackCreate, TrackUpdate, TrackDelete, TrackDetails} from "./view/dialogs/specific-dialogs/dialog-track.js"
+import DetailsDialog from "./view/dialogs/general-dialogs/dialog-detail.js";
+import UpdateDialog from "./view/dialogs/general-dialogs/dialog-update.js";
+import DeleteDialog from "./view/dialogs/general-dialogs/dialog-delete.js";
 
 window.addEventListener("load", initApp);
 
@@ -24,6 +27,7 @@ const allLists = new Map();
 let createDialog;
 let deleteDialog;
 let updateDialog;
+let detailDialog;
 
 async function initApp() {
   addEventListeners();
@@ -77,7 +81,12 @@ function handleSearchAndFilter(params) {
 function itemClicked(item, name) {
   console.log("item", item);
   console.log("name", name);
+  let detailRenderer = name == "#artists" ? ArtistDetails
+  : name == "#tracks" ? TrackDetails
+  : AlbumDetails
 
+  console.log(detailRenderer);
+  detailDialog.render(detailRenderer, item)
   // const idToLookFor = event.target.parentElement.id;
   // const whereToLook = event.target.parentElement.parentElement.id.split("-")[0];
 
@@ -86,27 +95,29 @@ function itemClicked(item, name) {
 }
 
 function initDialogs(params) {
-  updateDialog = new CreateDialog("update");
+  updateDialog = new UpdateDialog("update");
   createDialog = new CreateDialog("create");
-  deleteDialog = new CreateDialog("delete");
+  deleteDialog = new DeleteDialog("delete");
+  detailDialog = new DetailsDialog("details");
 }
 
 function createNewClicked(event) {
+  const thingToCreate = event.target.id.split("-")[1];
 
-  const thingToCreate = event.target.id.split("-")[1]
+  let renderer = thingToCreate == "artist" ? ArtistCreate : thingToCreate == "track" ? TrackCreate : AlbumCreate;
 
-  let renderer = thingToCreate == "artist" ?  ArtistCreate
-  : thingToCreate == "track" ?   TrackCreate
-  :  AlbumCreate
-
-  console.log("RENDERER:",renderer);
+  console.log("RENDERER:", renderer);
   createDialog.render(renderer);
 }
 
-function createSomething(objToCreate) {
-  
+function createSomething(objToCreate, where) {
+  if (where == "track") {
+    createTrack(objToCreate);
+  } else if (where == "artist") {
+    createArtist(objToCreate);
+  } else if (where == "album") {
+    createAlbum(objToCreate);
+  }
 }
 
-// createNewClicked()
-
-export { itemClicked };
+export { itemClicked, createSomething };

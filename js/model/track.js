@@ -1,13 +1,13 @@
-export default class Tracks {
+export default class Track {
   constructor(obj) {
     this.title = obj.title;
     this.durationSeconds = obj.durationSeconds;
     this.artistName = obj.artistName;
     this._id = obj.id;
 
-        Object.defineProperty(this, "_id", {
-          enumerable: false,
-        });
+    Object.defineProperty(this, "_id", {
+      enumerable: false,
+    });
   }
 
   get duration() {
@@ -24,9 +24,9 @@ export default class Tracks {
     return formattedTime;
   }
 
-  set duration(timeInMinutesAndSeconds){
-    const minutesAndSecs = timeInMinutesAndSeconds.split(":")
-    let time = minutesAndSecs[0]*60+minutesAndSecs[1]
+  set duration(timeInMinutesAndSeconds) {
+    const minutesAndSecs = timeInMinutesAndSeconds.split(":");
+    let time = minutesAndSecs[0] * 60 + minutesAndSecs[1];
     console.log(time);
   }
 }

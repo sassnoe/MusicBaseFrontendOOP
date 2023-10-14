@@ -1,5 +1,5 @@
 import Dialog from "./dialog-super.js";
-import {createArtist} from "../../../http.js"
+import { createSomething } from "../../../main.js";
 
 export default class CreateDialog extends Dialog {
   constructor(id) {
@@ -20,10 +20,6 @@ export default class CreateDialog extends Dialog {
     event.preventDefault()
     this.form = event.target;
     const [submitObj, where] = this.creater.submit(this.form);
-    console.log("OBJ TO SUBMIT:",where);
-    if (where == "track"){createTrack(submitObj);}
-    else if (where == "artist"){createArtist(submitObj);}
-    else if (where == "album"){createAlbum(submitObj);}
-    
+    createSomething(submitObj,where)
   }
 }

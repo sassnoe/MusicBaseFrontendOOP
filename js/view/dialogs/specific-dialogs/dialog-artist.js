@@ -1,18 +1,21 @@
-
-import Dialog from "../general-dialogs/dialog-super.js"
+import Dialog from "../general-dialogs/dialog-super.js";
 
 import CreateItemRenderer from "../general-dialogs/dialog-items.js";
-import DialogDetails from "../general-dialogs/dialog-detail.js";
+import DetailsDialog from "../general-dialogs/dialog-detail.js";
 import CreateDialog from "../general-dialogs/dialog-create.js";
 
 class ArtistDetails extends CreateItemRenderer {
-  render() {
-    const html = /*html*/ ``;
+  render(artistToShow) {
+    const html = /*html*/ `
+    <p>${artistToShow.name}</p>
+    <p>${artistToShow.birthdate}</p>
+    `;
+    return html
   }
 }
 
 class ArtistCreate extends CreateItemRenderer {
-   render() {
+  render() {
     const html = /*html*/ `
     <label for="name">Name</label>
     <input type="text" name="name">
@@ -20,10 +23,10 @@ class ArtistCreate extends CreateItemRenderer {
     <input type="text" name="birthdate">
     `;
 
-    return super.render(html)
+    return super.render(html);
   }
-   submit(form) {
-    return { name: form.name.value, birthdate: form.birthdate.value};
+  submit(form) {
+    return [{ name: form.name.value, birthdate: form.birthdate.value }, "artist"];
   }
 }
 

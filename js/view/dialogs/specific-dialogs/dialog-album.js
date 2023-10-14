@@ -1,9 +1,9 @@
 import Dialog from "../general-dialogs/dialog-super.js";
 
 import CreateItemRenderer from "../general-dialogs/dialog-items.js";
-import DialogDetails from "../general-dialogs/dialog-detail.js";
+import DetailsDialog from "../general-dialogs/dialog-detail.js";
 import CreateDialog from "../general-dialogs/dialog-create.js";
-class AlbumDetails extends DialogDetails {
+class AlbumDetails extends DetailsDialog {
   render() {
     const html = /*html*/ ``;
   }
@@ -12,16 +12,18 @@ class AlbumDetails extends DialogDetails {
 class AlbumCreate extends CreateDialog {
   render() {
     const html = /*html*/ `
-    <label for="name">Name</label>
+    <label for="title">Title</label>
     <input type="text" name="name">
-    <label for="birthdate">Birthdate</label>
-    <input type="text" name="birthdate">
+    <label for="releaseYear">Release year</label>
+    <input type="text" name="releaseYear">
+    <label for="artistName">Artist name</label>
+    <input type="text" name="artistName">
     `;
 
     return CreateItemRenderer.render(html);
   }
   submit(form) {
-    return { name: form.name.value, genre: form.genre.value, image: form.image.value, description: form.description.value };
+    return [{ title: form.title.value, releaseYear: form.releaseYear.value, artistName: form.artistName.value }, "album"];
   }
 }
 

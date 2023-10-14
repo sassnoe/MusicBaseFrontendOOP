@@ -1,7 +1,7 @@
 // const endpoint = `https://codequest-node.azurewebsites.net/`;
-import Albums from "./model/album.js";
-import Artists from "./model/artist.js";
-import Tracks from "./model/track.js";
+import Album from "./model/album.js";
+import Artist from "./model/artist.js";
+import Track from "./model/track.js";
 
 const port = 3333;
 const endpoint = `http://localhost:${port}`;
@@ -37,7 +37,7 @@ async function getArtists() {
   const objects = await response.json();
   console.log(objects);
   //   console.log(req);
-  const artistsList = objects.map((jsonObj) => new Artists(jsonObj));
+  const artistsList = objects.map((jsonObj) => new Artist(jsonObj));
   console.log(artistsList);
   return artistsList;
 }
@@ -46,7 +46,7 @@ async function getAlbums() {
   const response = await fetch(`${endpoint}/albums`);
   const objects = await response.json();
   //   console.log(req);
-  const albumsList = objects.map((jsonObj) => new Albums(jsonObj));
+  const albumsList = objects.map((jsonObj) => new Album(jsonObj));
   // console.log(albumsList);
   return albumsList;
 }
@@ -54,23 +54,28 @@ async function getAlbums() {
 async function getTracks() {
   const response = await fetch(`${endpoint}/tracks`);
   const objects = await response.json();
-  const trackList = objects.map((jsonObj) => new Tracks(jsonObj));
+  const trackList = objects.map((jsonObj) => new Track(jsonObj));
 
   return trackList;
 }
 
 async function createArtist(artistObj) {
-  console.log("artist obj",artistObj);
-  const artistToCreate = new Artists(artistObj)
-  const artistJSON = JSON.stringify(artistToCreate)
-  console.log("THIS ARTIST IS ABOUT TO GET CREATED:",artistJSON);
+  // console.log("artist obj",artistObj);
+  const artistToCreate = new Artist(artistObj);
+  const artistJSON = JSON.stringify(artistToCreate);
+  console.log("THIS ARTIST IS ABOUT TO GET CREATED:", artistJSON);
 }
 async function createTrack(artistObj) {
-  console.log("artist obj",artistObj);
-  const artistToCreate = new Artists(artistObj)
-  const artistJSON = JSON.stringify(artistToCreate)
-  console.log("THIS ARTIST IS ABOUT TO GET CREATED:",artistJSON);
+  console.log("artist obj", artistObj);
+  const artistToCreate = new Track(artistObj);
+  const artistJSON = JSON.stringify(artistToCreate);
+  console.log("THIS ARTIST IS ABOUT TO GET CREATED:", artistJSON);
+}
+async function createAlbum(artistObj) {
+  console.log("artist obj", artistObj);
+  const artistToCreate = new Album(artistObj);
+  const artistJSON = JSON.stringify(artistToCreate);
+  console.log("THIS ARTIST IS ABOUT TO GET CREATED:", artistJSON);
 }
 
-
-export { createTrack,createArtist, getArtists, getAlbums, getTracks, searchDatabase, findAlbumsByArtist, findTracksByAlbum };
+export { createTrack, createArtist, createAlbum, getArtists, getAlbums, getTracks, searchDatabase, findAlbumsByArtist, findTracksByAlbum };
