@@ -1,12 +1,12 @@
-import Dialog from "../dialog-SUPER";
+import Dialog from "./dialog-super.js";
 
-export default class CreateElement extends Dialog {
+export default class DialogDetails extends Dialog {
   constructor(id) {
     super(id);
   }
 
   render(detailRenderer, elementToShow) {
-    this.detailRenderer = detailRenderer
+    this.detailRenderer = detailRenderer;
     this.dialog.innerHTML = "";
     const html = detailRenderer.render(elementToShow);
     this.dialog.insertAdjacentHTML("beforeend", html);

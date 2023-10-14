@@ -1,4 +1,4 @@
-import Dialog from "./dialog-SUPER.js";
+import Dialog from "./dialog-super.js";
 export default class CreateDialog extends Dialog {
   constructor(id) {
     super(id);
@@ -8,7 +8,8 @@ export default class CreateDialog extends Dialog {
     this.creater = createToShow;
     const html = createToShow.render();
     this.dialog.innerHTML = html;
-    this.dialog.querySelector("form").addEventListener("submit", submit);
+    this.dialog.querySelector("form").addEventListener("submit", this.submit);
+    this.dialog.querySelector(".button-close").addEventListener("click", this.close.bind(this));
     this.show();
   }
 

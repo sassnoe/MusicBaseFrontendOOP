@@ -4,6 +4,9 @@ import ArtistRenderer from "./view/rendererArtist.js";
 import AlbumRenderer from "./view/rendererAlbum.js";
 import TrackRenderer from "./view/rendererTracks.js";
 import CreateDialog from "./view/dialogs/general-dialogs/dialog-create.js";
+import {ArtistCreate, ArtistUpdate, ArtistDelete, ArtistDetails} from "./view/dialogs/specific-dialogs/dialog-artist.js"
+import {AlbumCreate, AlbumUpdate, AlbumDelete, AlbumDetails} from "./view/dialogs/specific-dialogs/dialog-album.js"
+import {TrackCreate, TrackUpdate, TrackDelete, TrackDetails} from "./view/dialogs/specific-dialogs/dialog-track.js"
 
 window.addEventListener("load", initApp);
 
@@ -89,12 +92,13 @@ function initDialogs(params) {
 }
 
 function createNewClicked(event) {
-  // console.log(event.target);
-  // const thingToCreate = event.target.id.split("-")[1] + "-create";
+  console.log(event.target);
+  const thingToCreate = event.target.id.split("-")[1]
+  let renderer = thingToCreate == "artist" ? new ArtistCreate() : thingToCreate == "track" ? new TrackCreate() : new AlbumCreate()
   // console.log("THING TO CREATE:", thingToCreate);
   // const dialog = new CreateElement(thingToCreate);
   // console.log(dialog);
-  createDialog.render();
+  createDialog.render(renderer);
 }
 
 // createNewClicked()
