@@ -1,32 +1,32 @@
-import Dialog from "../general-dialogs/dialog-SUPER.js";
+import Dialog from "../general-dialogs/dialog-super.js";
 
 import CreateItemRenderer from "../general-dialogs/dialog-items.js";
 import DialogDetails from "../general-dialogs/dialog-detail.js";
 import CreateDialog from "../general-dialogs/dialog-create.js";
 
-class TrackDetails extends DialogDetails {
+class TrackDetails extends CreateItemRenderer {
   render() {
     const html = /*html*/ ``;
   }
 }
 
-class TrackCreate extends CreateDialog {
+class TrackCreate extends CreateItemRenderer {
   render() {
     const html = /*html*/ `
-    <label for="name">Name</label>
-    <input type="text" name="name">
-    <label for="birthdate">Birthdate</label>
-    <input type="text" name="birthdate">
+    <label for="title">Title</label>
+    <input type="text" name="title">
+    <label for="duration">Duration</label>
+    <input type="time" name="duration">
     `;
 
-    return CreateItemRenderer.render(html);
+    return super.render(html);
   }
   submit(form) {
-    return { name: form.name.value, genre: form.genre.value, image: form.image.value, description: form.description.value };
+    return [{ title: form.title.value, durationSeconds: form.duration.value}, "track"];
   }
 }
 
-class TrackUpdate extends Dialog {
+class TrackUpdate extends CreateItemRenderer {
   render() {
     const html = /*html*/ ``;
   }
@@ -43,7 +43,7 @@ class TrackUpdate extends Dialog {
   }
 }
 
-class TrackDelete extends Dialog {
+class TrackDelete extends CreateItemRenderer {
   render() {
     const html = /*html*/ ``;
   }

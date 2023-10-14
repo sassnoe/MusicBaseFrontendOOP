@@ -92,13 +92,19 @@ function initDialogs(params) {
 }
 
 function createNewClicked(event) {
-  console.log(event.target);
+
   const thingToCreate = event.target.id.split("-")[1]
-  let renderer = thingToCreate == "artist" ? new ArtistCreate() : thingToCreate == "track" ? new TrackCreate() : new AlbumCreate()
-  // console.log("THING TO CREATE:", thingToCreate);
-  // const dialog = new CreateElement(thingToCreate);
-  // console.log(dialog);
+
+  let renderer = thingToCreate == "artist" ?  ArtistCreate
+  : thingToCreate == "track" ?   TrackCreate
+  :  AlbumCreate
+
+  console.log("RENDERER:",renderer);
   createDialog.render(renderer);
+}
+
+function createSomething(objToCreate) {
+  
 }
 
 // createNewClicked()

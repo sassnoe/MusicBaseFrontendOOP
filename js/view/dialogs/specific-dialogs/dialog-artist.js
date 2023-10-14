@@ -1,18 +1,18 @@
 
-import Dialog from "../general-dialogs/dialog-SUPER.js"
+import Dialog from "../general-dialogs/dialog-super.js"
 
 import CreateItemRenderer from "../general-dialogs/dialog-items.js";
 import DialogDetails from "../general-dialogs/dialog-detail.js";
 import CreateDialog from "../general-dialogs/dialog-create.js";
 
-class ArtistDetails extends DialogDetails {
+class ArtistDetails extends CreateItemRenderer {
   render() {
     const html = /*html*/ ``;
   }
 }
 
-class ArtistCreate extends CreateDialog {
-  render() {
+class ArtistCreate extends CreateItemRenderer {
+   render() {
     const html = /*html*/ `
     <label for="name">Name</label>
     <input type="text" name="name">
@@ -20,14 +20,14 @@ class ArtistCreate extends CreateDialog {
     <input type="text" name="birthdate">
     `;
 
-    return CreateItemRenderer.render(html)
+    return super.render(html)
   }
-  submit(form) {
-    return { name: form.name.value, genre: form.genre.value, image: form.image.value, description: form.description.value };
+   submit(form) {
+    return { name: form.name.value, birthdate: form.birthdate.value};
   }
 }
 
-class ArtistUpdate extends Dialog {
+class ArtistUpdate extends CreateItemRenderer {
   render() {
     const html = /*html*/ ``;
   }
@@ -44,7 +44,7 @@ class ArtistUpdate extends Dialog {
   }
 }
 
-class ArtistDelete extends Dialog {
+class ArtistDelete extends CreateItemRenderer {
   render() {
     const html = /*html*/ ``;
   }

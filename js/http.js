@@ -1,7 +1,7 @@
 // const endpoint = `https://codequest-node.azurewebsites.net/`;
-import Albums from "./model/albums.js";
-import Artists from "./model/artists.js";
-import Tracks from "./model/tracks.js";
+import Albums from "./model/album.js";
+import Artists from "./model/artist.js";
+import Tracks from "./model/track.js";
 
 const port = 3333;
 const endpoint = `http://localhost:${port}`;
@@ -59,4 +59,18 @@ async function getTracks() {
   return trackList;
 }
 
-export { getArtists, getAlbums, getTracks, searchDatabase, findAlbumsByArtist, findTracksByAlbum };
+async function createArtist(artistObj) {
+  console.log("artist obj",artistObj);
+  const artistToCreate = new Artists(artistObj)
+  const artistJSON = JSON.stringify(artistToCreate)
+  console.log("THIS ARTIST IS ABOUT TO GET CREATED:",artistJSON);
+}
+async function createTrack(artistObj) {
+  console.log("artist obj",artistObj);
+  const artistToCreate = new Artists(artistObj)
+  const artistJSON = JSON.stringify(artistToCreate)
+  console.log("THIS ARTIST IS ABOUT TO GET CREATED:",artistJSON);
+}
+
+
+export { createTrack,createArtist, getArtists, getAlbums, getTracks, searchDatabase, findAlbumsByArtist, findTracksByAlbum };

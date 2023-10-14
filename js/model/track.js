@@ -4,6 +4,10 @@ export default class Tracks {
     this.durationSeconds = obj.durationSeconds;
     this.artistName = obj.artistName;
     this._id = obj.id;
+
+        Object.defineProperty(this, "_id", {
+          enumerable: false,
+        });
   }
 
   get duration() {
@@ -18,5 +22,11 @@ export default class Tracks {
     const formattedTime = formattedMinutes + ":" + formattedSeconds;
 
     return formattedTime;
+  }
+
+  set duration(timeInMinutesAndSeconds){
+    const minutesAndSecs = timeInMinutesAndSeconds.split(":")
+    let time = minutesAndSecs[0]*60+minutesAndSecs[1]
+    console.log(time);
   }
 }
