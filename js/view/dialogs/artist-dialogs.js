@@ -1,8 +1,8 @@
 import Dialog from "../dialog-SUPER";
 
-export default class ArtistDialog extends Dialog {
+export class ArtistDetails extends Dialog {
   constructor(id) {
-    super(id)
+    super(id);
   }
 
   render() {
@@ -18,5 +18,21 @@ export default class ArtistDialog extends Dialog {
     });
 
     form.reset();
+  }
+}
+
+
+
+export  class ArtistCreate extends Dialog {
+
+
+  render() {
+    const html = /*html*/ `
+    <form>
+    </form>
+    `;
+  }
+  submit(form) {
+    return { name: form.name.value, birthdate: form.birthdate.value };
   }
 }

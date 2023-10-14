@@ -3,7 +3,7 @@ import ListRenderer from "./view/listrenderer.js";
 import ArtistRenderer from "./view/rendererArtist.js";
 import AlbumRenderer from "./view/rendererAlbum.js";
 import TrackRenderer from "./view/rendererTracks.js";
-import CreateElement from "./view/dialogs/dialog-create.js";
+import CreateDialog from "./view/dialogs/general-dialogs/dialog-create.js";
 
 window.addEventListener("load", initApp);
 
@@ -30,7 +30,7 @@ async function initApp() {
   albums = await getAlbums();
   tracks = await getTracks();
   initView();
-  initDialogs()
+  initDialogs();
 }
 
 function initView() {
@@ -72,8 +72,8 @@ function handleSearchAndFilter(params) {
 }
 
 function itemClicked(item, name) {
-  console.log("item",item);
-  console.log("name",name);
+  console.log("item", item);
+  console.log("name", name);
 
   // const idToLookFor = event.target.parentElement.id;
   // const whereToLook = event.target.parentElement.parentElement.id.split("-")[0];
@@ -83,9 +83,9 @@ function itemClicked(item, name) {
 }
 
 function initDialogs(params) {
-  updateDialog = new CreateElement("update")
-  createDialog = new CreateElement("create")
-  deleteDialog = new CreateElement("delete");
+  updateDialog = new CreateDialog("update");
+  createDialog = new CreateDialog("create");
+  deleteDialog = new CreateDialog("delete");
 }
 
 function createNewClicked(event) {
