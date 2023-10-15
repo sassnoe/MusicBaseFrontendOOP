@@ -7,6 +7,7 @@ export default class CreateDialog extends Dialog {
     super(id);
   }
 
+
   async submit(event) {
     super.submit(event);
     if (await createElement(this.submitObj, this.where)) {

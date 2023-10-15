@@ -19,9 +19,8 @@ export default class Dialog {
     this.detailRenderer = new detailRenderer();
     const html = this.detailRenderer.render(elementToShow);
     this.dialog.innerHTML = html;
-    console.log("LIST:", listToInclude);
     if (listToInclude) {
-      this.detailRenderer.fillList(listToInclude, this.dialog);
+      this.detailRenderer.fillList(listToInclude, this.dialog, elementToShow);
     }
     this.dialog.querySelector(".button-close").addEventListener("click", this.close.bind(this));
     this.dialog.querySelector("form").addEventListener("submit", this.submit.bind(this));

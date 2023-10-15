@@ -45,15 +45,16 @@ class TrackUpdate extends CreateItemRenderer {
     <label for="duration">Duration</label>
     <input type="time" name="duration" value="${track.duration}">
         <label for="artistID">Name of artist</label>
-        <select name="artistID"><option></option></select>
+        <select name="artistID" id="artistID"></select>
             <label for="albumID">On this album</label>
     <select name="albumID" id="albumID"></select>
     `;
     return super.render(html, "update");
   }
-  fillList(artistAndAlbumArray, select) {
-    super.fillList(artistAndAlbumArray[0], select.querySelector("#artistID"));
-    super.fillList(artistAndAlbumArray[1], select.querySelector("#albumID"));
+
+  fillList(artistAndAlbumArray, select, extraInfo) {
+    super.fillList(artistAndAlbumArray[0], select.querySelector("#artistID"), extraInfo.artistIds);
+    super.fillList(artistAndAlbumArray[1], select.querySelector("#albumID"), extraInfo.albumIds);
   }
 
   submit(form) {

@@ -1,5 +1,5 @@
 import Dialog from "./dialog-super.js";
-// import { updateSomething } from "../../../main.js";
+import { updateElement } from "../../../http.js";
 
 // REPLACE @@@@@@@@@@@@@@@@@@@
 export default class UpdateDialog extends Dialog {
@@ -9,7 +9,7 @@ export default class UpdateDialog extends Dialog {
 
   submit(event) {
     super.submit(event)
-    updateSomething(this.submitObj, this.where);
+    updateElement(this.submitObj, this.where);
     this.close()
   }
 }

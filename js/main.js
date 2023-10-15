@@ -132,28 +132,32 @@ function createNewClicked(event) {
 //   createSomething
 // }
 
-function updateSomething(objToUpdate, where) {
-  if (where == "track") {
-    updateTrack(objToUpdate);
-  } else if (where == "artist") {
-    updateArtist(objToUpdate);
-  } else if (where == "album") {
-    updateAlbum(objToUpdate);
-  }
-}
+// function updateSomething(objToUpdate, where) {
+//   if (where == "track") {
+//     updateTrack(objToUpdate);
+//   } else if (where == "artist") {
+//     updateArtist(objToUpdate);
+//   } else if (where == "album") {
+//     updateAlbum(objToUpdate);
+//   }
+//   updateElement()
+// }
 
 function updateClicked(classObj, item) {
   let renderer;
+  let additionalList = undefined;
   if (classObj.name.includes("Album")) {
     renderer = AlbumUpdate;
+    additionalList = artists;
   } else if (classObj.name.includes("Track")) {
     renderer = TrackUpdate;
+    additionalList = [artists, albums];
   } else {
     renderer = ArtistUpdate;
   }
-  updateDialog.render(renderer, item);
+  updateDialog.render(renderer, item, additionalList);
 }
 
 function failedCreation(params) {}
 
-export { itemClicked, updateClicked, updateSomething };
+export { itemClicked, updateClicked };

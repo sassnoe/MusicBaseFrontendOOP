@@ -6,9 +6,14 @@ export default class CreateItemRenderer {
     </form>`;
   }
 
-  fillList(elementList, select) {
+  fillList(elementList, select, selectThisID) {
+    console.log(elementList);
     elementList.forEach((element) => {
-      select.insertAdjacentHTML("beforeend", `<option value="${element._id}">${element.name || element.title}</option>`);
+       select.insertAdjacentHTML("beforeend", `<option value="${element._id}">${element.name || element.title}</option>`);
+       if (selectThisID == element._id) {
+        select.querySelector("option:last-child").selected = true
+       }
     });
   }
 }
+//  ${extraInfo == element._id ? "selected" : ""}
