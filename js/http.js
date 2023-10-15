@@ -60,10 +60,15 @@ async function getTracks() {
 }
 
 async function createArtist(artistObj) {
-  // console.log("artist obj",artistObj);
-  const artistToCreate = new Artist(artistObj);
-  const artistJSON = JSON.stringify(artistToCreate);
-  console.log("THIS ARTIST IS ABOUT TO GET CREATED:", artistJSON);
+  console.log("artist obj", artistObj);
+  if (artistObj.name !== "" && artistObj.birthdate !== "") {
+    const artistToCreate = new Artist(artistObj);
+    const artistJSON = JSON.stringify(artistToCreate);
+    console.log("THIS ARTIST IS ABOUT TO GET CREATED:", artistJSON);
+    return true;
+  } else {
+    return false;
+  }
 }
 async function createTrack(artistObj) {
   console.log("artist obj", artistObj);
@@ -96,5 +101,4 @@ async function createAlbum(artistObj) {
   console.log("THIS ARTIST IS ABOUT TO GET CREATED:", artistJSON);
 }
 
-export { createTrack, createArtist, createAlbum, getArtists, getAlbums, getTracks, searchDatabase, findAlbumsByArtist, findTracksByAlbum, 
-  updateArtist, updateTrack, updateAlbum };
+export { createTrack, createArtist, createAlbum, getArtists, getAlbums, getTracks, searchDatabase, findAlbumsByArtist, findTracksByAlbum, updateArtist, updateTrack, updateAlbum };

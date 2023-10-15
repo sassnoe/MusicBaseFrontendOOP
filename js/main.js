@@ -108,11 +108,13 @@ function createNewClicked(event) {
   createDialog.render(renderer);
 }
 
-function createSomething(objToCreate, where) {
+async function createSomething(objToCreate, where) {
   if (where == "track") {
     createTrack(objToCreate);
   } else if (where == "artist") {
-    createArtist(objToCreate);
+    // console.log("create something check", await createArtist(objToCreate))
+    return await createArtist(objToCreate)
+
   } else if (where == "album") {
     createAlbum(objToCreate);
   }
@@ -137,6 +139,10 @@ function updateClicked(classObj, item) {
     console.log("update track!");
     updateDialog.render(TrackUpdate, item);
   }
+}
+
+function failedCreation(params) {
+  
 }
 
 export { itemClicked, createSomething, updateClicked, updateSomething };
