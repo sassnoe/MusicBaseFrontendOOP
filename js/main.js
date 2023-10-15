@@ -1,4 +1,4 @@
-import { getArtists, getAlbums, getTracks, createTrack, createArtist, createAlbum } from "./http.js";
+import { getArtists, getAlbums, getTracks, createTrack, createArtist, createAlbum, updateArtist, updateTrack, updateAlbum } from "./http.js";
 import ListRenderer from "./view/listrenderer.js";
 import ArtistRenderer from "./view/rendererArtist.js";
 import AlbumRenderer from "./view/rendererAlbum.js";
@@ -81,12 +81,10 @@ function handleSearchAndFilter(params) {
 function itemClicked(item, name) {
   console.log("item", item);
   console.log("name", name);
-  let detailRenderer = name == "#artists" ? ArtistDetails
-  : name == "#tracks" ? TrackDetails
-  : AlbumDetails
+  let detailRenderer = name == "#artists" ? ArtistDetails : name == "#tracks" ? TrackDetails : AlbumDetails;
 
   console.log(detailRenderer);
-  detailDialog.render(detailRenderer, item)
+  detailDialog.render(detailRenderer, item);
   // const idToLookFor = event.target.parentElement.id;
   // const whereToLook = event.target.parentElement.parentElement.id.split("-")[0];
 
@@ -120,4 +118,25 @@ function createSomething(objToCreate, where) {
   }
 }
 
-export { itemClicked, createSomething };
+function updateSomething(objToUpdate, where) {
+  if (where == "track") {
+    updateTrack(objToUpdate);
+  } else if (where == "artist") {
+    updateArtist(objToUpdate);
+  } else if (where == "album") {
+    updateAlbum(objToUpdate);
+  }
+}
+
+function updateClicked(classObj, item) {
+  console.log(classObj);
+  if (classObj.name.includes("Album")) {
+    console.log("update album!");
+    updateDialog.render(AlbumUpdate, item);
+  } else if (classObj.name.includes("Track")) {
+    console.log("update track!");
+    updateDialog.render(TrackUpdate, item);
+  }
+}
+
+export { itemClicked, createSomething, updateClicked, updateSomething };

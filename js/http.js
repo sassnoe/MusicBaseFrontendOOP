@@ -71,6 +71,24 @@ async function createTrack(artistObj) {
   const artistJSON = JSON.stringify(artistToCreate);
   console.log("THIS ARTIST IS ABOUT TO GET CREATED:", artistJSON);
 }
+async function updateTrack(trackObj) {
+  console.log("artist obj", trackObj);
+  const trackToCreate = new Track(trackObj);
+  const trackJSON = JSON.stringify(trackToCreate);
+  console.log("THIS TRACK IS ABOUT TO GET UPDATE:", trackJSON);
+}
+async function updateAlbum(trackObj) {
+  console.log("artist obj", trackObj);
+  const trackToCreate = new Album(trackObj);
+  const trackJSON = JSON.stringify(trackToCreate);
+  console.log("THIS TRACK IS ABOUT TO GET UPDATE:", trackJSON);
+}
+async function updateArtist(trackObj) {
+  console.log("artist obj", trackObj);
+  const trackToCreate = new Artist(trackObj);
+  const trackJSON = JSON.stringify(trackToCreate);
+  console.log("THIS TRACK IS ABOUT TO GET UPDATE:", trackJSON);
+}
 async function createAlbum(artistObj) {
   console.log("artist obj", artistObj);
   const artistToCreate = new Album(artistObj);
@@ -78,4 +96,5 @@ async function createAlbum(artistObj) {
   console.log("THIS ARTIST IS ABOUT TO GET CREATED:", artistJSON);
 }
 
-export { createTrack, createArtist, createAlbum, getArtists, getAlbums, getTracks, searchDatabase, findAlbumsByArtist, findTracksByAlbum };
+export { createTrack, createArtist, createAlbum, getArtists, getAlbums, getTracks, searchDatabase, findAlbumsByArtist, findTracksByAlbum, 
+  updateArtist, updateTrack, updateAlbum };

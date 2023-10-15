@@ -12,4 +12,21 @@ export default class Dialog {
   close() {
     this.dialog.close();
   }
+
+  render(detailRenderer, elementToShow){
+    this.name = detailRenderer
+    this.elementToShow = elementToShow
+        this.detailRenderer = new detailRenderer();
+        const html = this.detailRenderer.render(elementToShow);
+        this.dialog.innerHTML = html;
+        this.dialog.querySelector(".button-close").addEventListener("click", this.close.bind(this));
+        this.dialog.querySelector("form").addEventListener("submit", this.submit.bind(this));
+        this.show();
+  }
+
+    submit(event) {
+    event.preventDefault();
+    this.form = event.target;
+    [this.submitObj, this.where] = this.detailRenderer.submit(this.form);
+  }
 }

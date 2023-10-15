@@ -10,7 +10,7 @@ class ArtistDetails extends CreateItemRenderer {
     <p>${artistToShow.name}</p>
     <p>${artistToShow.birthdate}</p>
     `;
-    return html
+    return super.render(html, "update")
   }
 }
 
@@ -20,7 +20,7 @@ class ArtistCreate extends CreateItemRenderer {
     <label for="name">Name</label>
     <input type="text" name="name">
     <label for="birthdate">Birthdate</label>
-    <input type="text" name="birthdate">
+    <input type="date" name="birthdate">
     `;
 
     return super.render(html);
@@ -31,8 +31,15 @@ class ArtistCreate extends CreateItemRenderer {
 }
 
 class ArtistUpdate extends CreateItemRenderer {
-  render() {
-    const html = /*html*/ ``;
+  render(artistData) {
+        const html = /*html*/ `
+    <label for="name">${artistData.name}</label>
+    <input type="text" name="name" value="${artistData.name}">
+    <label for="birthdate">${artistData.name}</label>
+    <input type="date" name="birthdate" value="${artistData.birthdate}">
+    `;
+
+        return super.render(html);
   }
   submit() {
     const form = this.dialog.querySelector("form");

@@ -3,48 +3,53 @@ import Dialog from "../general-dialogs/dialog-super.js";
 import CreateItemRenderer from "../general-dialogs/dialog-items.js";
 import DetailsDialog from "../general-dialogs/dialog-detail.js";
 import CreateDialog from "../general-dialogs/dialog-create.js";
-class AlbumDetails extends DetailsDialog {
-  render() {
-    const html = /*html*/ ``;
+class AlbumDetails extends CreateItemRenderer {
+  render(albumToShow) {
+    const html = /*html*/ `
+    <p>${albumToShow.title}</p>
+    <p>${albumToShow.releaseYear}</p>
+    <p>${albumToShow.artistName}</p>
+    `;
+    return super.render(html, "update");
   }
 }
 
-class AlbumCreate extends CreateDialog {
+class AlbumCreate extends CreateItemRenderer {
   render() {
     const html = /*html*/ `
     <label for="title">Title</label>
     <input type="text" name="name">
     <label for="releaseYear">Release year</label>
     <input type="text" name="releaseYear">
-    <label for="artistName">Artist name</label>
-    <input type="text" name="artistName">
+    <label for="albumName">album name</label>
+    <input type="text" name="albumName">
     `;
 
-    return CreateItemRenderer.render(html);
+    return super.render(html);
+  }
+  submit(form) {
+    return [{ title: form.title.value, releaseYear: form.releaseYear.value, albumName: form.albumName.value }, "album"];
+  }
+}
+
+class AlbumUpdate extends CreateItemRenderer {
+  render(album) {
+    const html = /*html*/ `
+    <label for="title">Title</label>
+    <input type="text" name="title" value="${album.title}">
+    <label for="releaseYear">Release year</label>
+    <input type="number" name="releaseYear" value="${album.releaseYear}">
+        <label for="artistName">Artist name</label>
+    <input type="text" name="artistName" value="${album.artistName}">
+    `;
+    return super.render(html, "update");
   }
   submit(form) {
     return [{ title: form.title.value, releaseYear: form.releaseYear.value, artistName: form.artistName.value }, "album"];
   }
 }
 
-class AlbumUpdate extends Dialog {
-  render() {
-    const html = /*html*/ ``;
-  }
-  submit() {
-    const form = this.dialog.querySelector("form");
-    this.Album = new Album({
-      name: form.name.value,
-      genre: form.genre.value,
-      image: form.image.value,
-      description: form.description.value,
-    });
-
-    form.reset();
-  }
-}
-
-class AlbumDelete extends Dialog {
+class AlbumDelete extends CreateItemRenderer {
   render() {
     const html = /*html*/ ``;
   }
