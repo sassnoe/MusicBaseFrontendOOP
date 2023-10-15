@@ -18,21 +18,22 @@ class TrackCreate extends CreateItemRenderer {
     <input type="text" name="title">
     <label for="duration">Duration</label>
     <input type="time" name="duration">
-    <label for="artistId">Name of artist</label>
-    <select name="artistId"></select>
+    <label for="artistID">Name of artist</label>
+    <select name="artistID" id="artistID"></select>
+    <label for="albumID">On this album</label>
+    <select name="albumID" id="albumID"></select>
     `;
 
     return super.render(html);
   }
 
-//   fillList(artistList, select) {
-//     artistList.forEach((artist) => {
-//         select.insertAdjacentHTML("beforeend", `<option>${artist.name}</option>`)
-//     });
-//   }
+  fillList(artistAndAlbumArray, select) {
+    super.fillList(artistAndAlbumArray[0], select.querySelector("#artistID"));
+    super.fillList(artistAndAlbumArray[1], select.querySelector("#albumID"));
+  }
 
   submit(form) {
-    return [{ title: form.title.value, durationSeconds: form.duration.value, artistId: form.artistId.value }, "tracks"];
+    return [{ title: form.title.value, albumID: form.albumID.value, durationSeconds: form.duration.value, artistID: form.artistID.value }, "tracks"];
   }
 }
 
@@ -43,22 +44,21 @@ class TrackUpdate extends CreateItemRenderer {
     <input type="text" name="title" value="${track.title}">
     <label for="duration">Duration</label>
     <input type="time" name="duration" value="${track.duration}">
-        <label for="artistId">Name of artist</label>
-        <select name="artistId"><option></option></select>
+        <label for="artistID">Name of artist</label>
+        <select name="artistID"><option></option></select>
+            <label for="albumID">On this album</label>
+    <select name="albumID" id="albumID"></select>
     `;
     return super.render(html, "update");
   }
-  //   submit() {
-  //     const form = this.dialog.querySelector("form");
-  //     this.Track = new Track({
-  //       name: form.name.value,
-  //       genre: form.genre.value,
-  //       image: form.image.value,
-  //       description: form.description.value,
-  //     });
+  fillList(artistAndAlbumArray, select) {
+    super.fillList(artistAndAlbumArray[0], select.querySelector("#artistID"));
+    super.fillList(artistAndAlbumArray[1], select.querySelector("#albumID"));
+  }
 
-  //     form.reset();
-  //   }
+  submit(form) {
+    return [{ title: form.title.value, albumID: form.albumID.value, durationSeconds: form.duration.value, artistID: form.artistID.value }, "tracks"];
+  }
 }
 
 class TrackDelete extends CreateItemRenderer {

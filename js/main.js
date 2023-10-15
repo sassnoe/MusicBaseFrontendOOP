@@ -108,14 +108,12 @@ function createNewClicked(event) {
     renderer = ArtistCreate;
   } else if (thingToCreate == "track") {
     renderer = TrackCreate;
-    additionalList = artists;
+    additionalList = [artists, albums];
   } else {
     renderer = AlbumCreate;
-    additionalList = tracks;
+    additionalList = artists;
   }
-  console.log(additionalList);
-  // console.log("RENDERER:", renderer);
-  // console.log("artist list:",artists);
+
   createDialog.render(renderer, undefined, additionalList);
 }
 
@@ -145,14 +143,15 @@ function updateSomething(objToUpdate, where) {
 }
 
 function updateClicked(classObj, item) {
-  console.log(classObj);
+  let renderer;
   if (classObj.name.includes("Album")) {
-    console.log("update album!");
-    updateDialog.render(AlbumUpdate, item);
+    renderer = AlbumUpdate;
   } else if (classObj.name.includes("Track")) {
-    console.log("update track!");
-    updateDialog.render(TrackUpdate, item);
+    renderer = TrackUpdate;
+  } else {
+    renderer = ArtistUpdate;
   }
+  updateDialog.render(renderer, item);
 }
 
 function failedCreation(params) {}

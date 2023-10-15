@@ -4,7 +4,7 @@ export default class Track {
     this.title = obj.title;
     this.durationSeconds = typeof obj.durationSeconds == "string" ? this.setDuration(obj.durationSeconds) : obj.durationSeconds;
     this.artistName = obj.artistName;
-    this.artistIds = [obj.artistID];
+    this.artistIds = obj.artistID;
     this.albumTitle = obj.albumTitle;
     this.albumIds = obj.albumID
     this._id = obj.id;

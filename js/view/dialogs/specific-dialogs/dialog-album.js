@@ -20,9 +20,10 @@ class AlbumCreate extends CreateItemRenderer {
     <label for="title">Title</label>
     <input type="text" name="name">
     <label for="releaseYear">Release year</label>
-    <input type="text" name="releaseYear">
-    <label for="albumName">album name</label>
+    <input type="number" name="releaseYear">
+    <label for="albumName">Album name</label>
     <input type="text" name="albumName">
+    <label for="artistID">Artist name</label>
     <select name="artistID"></select>
     `;
 

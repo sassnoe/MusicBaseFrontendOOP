@@ -1,5 +1,5 @@
 import Dialog from "./dialog-super.js";
-import {updateClicked} from "../../../main.js"
+import { updateClicked } from "../../../main.js";
 
 export default class DetailsDialog extends Dialog {
   constructor(id) {
@@ -8,7 +8,7 @@ export default class DetailsDialog extends Dialog {
 
   submit(event){
     event.preventDefault()
-    updateClicked(this.name, this.elementToShow)
+    updateClicked(this.name, this.elementToShow);
     this.close()
   }
 }
