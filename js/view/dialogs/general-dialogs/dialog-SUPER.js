@@ -13,12 +13,14 @@ export default class Dialog {
     this.dialog.close();
   }
 
-  render(detailRenderer, elementToShow){
+  render(detailRenderer, elementToShow, listToInclude){
     this.name = detailRenderer
     this.elementToShow = elementToShow
         this.detailRenderer = new detailRenderer();
         const html = this.detailRenderer.render(elementToShow);
         this.dialog.innerHTML = html;
+        console.log("LIST:",listToInclude);
+        if (listToInclude){console.log("list to include?");this.detailRenderer.fillList(listToInclude, this.dialog.querySelector("select"));}
         this.dialog.querySelector(".button-close").addEventListener("click", this.close.bind(this));
         this.dialog.querySelector("form").addEventListener("submit", this.submit.bind(this));
         this.show();

@@ -11,20 +11,28 @@ class TrackDetails extends CreateItemRenderer {
 }
 
 class TrackCreate extends CreateItemRenderer {
-  render() {
+  render(list) {
     const html = /*html*/ `
+    
     <label for="title">Title</label>
     <input type="text" name="title">
     <label for="duration">Duration</label>
     <input type="time" name="duration">
-    <label for="trackName">track name</label>
-    <input type="text" name="trackName">
+    <label for="artistId">Name of artist</label>
+    <select name="artistId"></select>
     `;
 
     return super.render(html);
   }
+
+//   fillList(artistList, select) {
+//     artistList.forEach((artist) => {
+//         select.insertAdjacentHTML("beforeend", `<option>${artist.name}</option>`)
+//     });
+//   }
+
   submit(form) {
-    return [{ title: form.title.value, durationSeconds: form.duration.value }, "track"];
+    return [{ title: form.title.value, durationSeconds: form.duration.value, artistId: form.artistId.value }, "tracks"];
   }
 }
 
@@ -35,22 +43,22 @@ class TrackUpdate extends CreateItemRenderer {
     <input type="text" name="title" value="${track.title}">
     <label for="duration">Duration</label>
     <input type="time" name="duration" value="${track.duration}">
-        <label for="artistName">Artist name</label>
-    <input type="text" name="artistNameartistName" value="${track.artistName}">
+        <label for="artistId">Name of artist</label>
+        <select name="artistId"><option></option></select>
     `;
-      return super.render(html, "update");
+    return super.render(html, "update");
   }
-//   submit() {
-//     const form = this.dialog.querySelector("form");
-//     this.Track = new Track({
-//       name: form.name.value,
-//       genre: form.genre.value,
-//       image: form.image.value,
-//       description: form.description.value,
-//     });
+  //   submit() {
+  //     const form = this.dialog.querySelector("form");
+  //     this.Track = new Track({
+  //       name: form.name.value,
+  //       genre: form.genre.value,
+  //       image: form.image.value,
+  //       description: form.description.value,
+  //     });
 
-//     form.reset();
-//   }
+  //     form.reset();
+  //   }
 }
 
 class TrackDelete extends CreateItemRenderer {

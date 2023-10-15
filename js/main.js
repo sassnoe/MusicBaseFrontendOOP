@@ -1,4 +1,4 @@
-import { getArtists, getAlbums, getTracks, createTrack, createArtist, createAlbum, updateArtist, updateTrack, updateAlbum } from "./http.js";
+import { createElement, getArtists, getAlbums, getTracks } from "./http.js";
 import ListRenderer from "./view/listrenderer.js";
 import ArtistRenderer from "./view/rendererArtist.js";
 import AlbumRenderer from "./view/rendererAlbum.js";
@@ -102,23 +102,37 @@ function initDialogs(params) {
 function createNewClicked(event) {
   const thingToCreate = event.target.id.split("-")[1];
 
-  let renderer = thingToCreate == "artist" ? ArtistCreate : thingToCreate == "track" ? TrackCreate : AlbumCreate;
-
-  console.log("RENDERER:", renderer);
-  createDialog.render(renderer);
-}
-
-async function createSomething(objToCreate, where) {
-  if (where == "track") {
-    createTrack(objToCreate);
-  } else if (where == "artist") {
-    // console.log("create something check", await createArtist(objToCreate))
-    return await createArtist(objToCreate)
-
-  } else if (where == "album") {
-    createAlbum(objToCreate);
+  let additionalList;
+  let renderer;
+  if (thingToCreate == "artist") {
+    renderer = ArtistCreate;
+  } else if (thingToCreate == "track") {
+    renderer = TrackCreate;
+    additionalList = artists;
+  } else {
+    renderer = AlbumCreate;
+    additionalList = tracks;
   }
+  console.log(additionalList);
+  // console.log("RENDERER:", renderer);
+  // console.log("artist list:",artists);
+  createDialog.render(renderer, undefined, additionalList);
 }
+
+// async function createSomething(objToCreate, where) {
+//   // const kindOfCreation = where
+//   if (where == "track") {
+//     createTrack(objToCreate);
+//   } else if (where == "artist") {
+//     // console.log("create something check", await createArtist(objToCreate))
+//     return await createArtist(objToCreate)
+
+//   } else if (where == "album") {
+//     createAlbum(objToCreate);
+//   }
+
+//   createSomething
+// }
 
 function updateSomething(objToUpdate, where) {
   if (where == "track") {
@@ -141,8 +155,6 @@ function updateClicked(classObj, item) {
   }
 }
 
-function failedCreation(params) {
-  
-}
+function failedCreation(params) {}
 
-export { itemClicked, createSomething, updateClicked, updateSomething };
+export { itemClicked, updateClicked, updateSomething };

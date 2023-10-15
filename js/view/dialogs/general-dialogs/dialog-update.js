@@ -1,5 +1,5 @@
 import Dialog from "./dialog-super.js";
-import { updateSomething } from "../../../main.js";
+// import { updateSomething } from "../../../main.js";
 
 // REPLACE @@@@@@@@@@@@@@@@@@@
 export default class UpdateDialog extends Dialog {

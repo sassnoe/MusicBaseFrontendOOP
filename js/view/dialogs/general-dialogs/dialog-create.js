@@ -1,5 +1,6 @@
 import Dialog from "./dialog-super.js";
-import { createSomething } from "../../../main.js";
+import { createElement } from "../../../http.js";
+// import {}
 
 export default class CreateDialog extends Dialog {
   constructor(id) {
@@ -8,9 +9,10 @@ export default class CreateDialog extends Dialog {
 
   async submit(event) {
     super.submit(event);
-    if (await createSomething(this.submitObj, this.where)) {
+    if (await createElement(this.submitObj, this.where)) {
       this.close();
+    } else {
+      console.log("FAILURE");
     }
-    else {console.log("FAILURE");}
   }
 }

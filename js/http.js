@@ -35,17 +35,16 @@ async function findTracksByAlbum(whereToSearch, searchID) {
 async function getArtists() {
   const response = await fetch(`${endpoint}/artists`);
   const objects = await response.json();
-  console.log(objects);
+  console.log("RAW ARTISTS",objects);
   //   console.log(req);
   const artistsList = objects.map((jsonObj) => new Artist(jsonObj));
-  console.log(artistsList);
   return artistsList;
 }
 
 async function getAlbums() {
   const response = await fetch(`${endpoint}/albums`);
   const objects = await response.json();
-  //   console.log(req);
+    console.log("RAW ALBUMS",objects);
   const albumsList = objects.map((jsonObj) => new Album(jsonObj));
   // console.log(albumsList);
   return albumsList;
@@ -54,51 +53,41 @@ async function getAlbums() {
 async function getTracks() {
   const response = await fetch(`${endpoint}/tracks`);
   const objects = await response.json();
+  console.log("RAW TRACKS",objects);
   const trackList = objects.map((jsonObj) => new Track(jsonObj));
 
   return trackList;
 }
 
-async function createArtist(artistObj) {
-  console.log("artist obj", artistObj);
-  if (artistObj.name !== "" && artistObj.birthdate !== "") {
-    const artistToCreate = new Artist(artistObj);
-    const artistJSON = JSON.stringify(artistToCreate);
-    console.log("THIS ARTIST IS ABOUT TO GET CREATED:", artistJSON);
-    return true;
-  } else {
-    return false;
-  }
-}
-async function createTrack(artistObj) {
-  console.log("artist obj", artistObj);
-  const artistToCreate = new Track(artistObj);
-  const artistJSON = JSON.stringify(artistToCreate);
-  console.log("THIS ARTIST IS ABOUT TO GET CREATED:", artistJSON);
-}
-async function updateTrack(trackObj) {
-  console.log("artist obj", trackObj);
-  const trackToCreate = new Track(trackObj);
-  const trackJSON = JSON.stringify(trackToCreate);
-  console.log("THIS TRACK IS ABOUT TO GET UPDATE:", trackJSON);
-}
-async function updateAlbum(trackObj) {
-  console.log("artist obj", trackObj);
-  const trackToCreate = new Album(trackObj);
-  const trackJSON = JSON.stringify(trackToCreate);
-  console.log("THIS TRACK IS ABOUT TO GET UPDATE:", trackJSON);
-}
-async function updateArtist(trackObj) {
-  console.log("artist obj", trackObj);
-  const trackToCreate = new Artist(trackObj);
-  const trackJSON = JSON.stringify(trackToCreate);
-  console.log("THIS TRACK IS ABOUT TO GET UPDATE:", trackJSON);
-}
-async function createAlbum(artistObj) {
-  console.log("artist obj", artistObj);
-  const artistToCreate = new Album(artistObj);
-  const artistJSON = JSON.stringify(artistToCreate);
-  console.log("THIS ARTIST IS ABOUT TO GET CREATED:", artistJSON);
+async function createElement(obj, whereToPost) {
+  console.log("artist obj", obj);
+  const elementToCreate = whereToPost == "tracks" ? new Track(obj) : whereToPost == "albums" ? new Album(obj) : new Artist(obj);
+  console.log("about to create this element!",elementToCreate);
+  const response = await fetch(`${endpoint}/${whereToPost}`, {
+    method: "POST",
+    body: JSON.stringify(elementToCreate),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  console.log(response);
+  return response.ok;
 }
 
-export { createTrack, createArtist, createAlbum, getArtists, getAlbums, getTracks, searchDatabase, findAlbumsByArtist, findTracksByAlbum, updateArtist, updateTrack, updateAlbum };
+async function updateElement(obj, whereToPost) {
+  console.log("artist obj", obj);
+  const elementToCreate = whereToPost == "tracks" ? new Track(obj) : whereToPost == "albums" ? new Album(obj) : new Artist(obj);
+  // const elementToJSON = JSON.stringify(elementToCreate);
+  // console.log("THIS THINGY IS ABOUT TO GET CREATED:", elementToJSON);
+  const response = await fetch(`${endpoint}/${whereToPost}`, {
+    method: "POST",
+    body: JSON.stringify(elementToCreate),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  console.log(response);
+  return response.ok;
+}
+
+export { updateElement, createElement, getArtists, getAlbums, getTracks, searchDatabase, findAlbumsByArtist, findTracksByAlbum };

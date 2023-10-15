@@ -23,12 +23,13 @@ class AlbumCreate extends CreateItemRenderer {
     <input type="text" name="releaseYear">
     <label for="albumName">album name</label>
     <input type="text" name="albumName">
+    <select name="artistID"></select>
     `;
 
     return super.render(html);
   }
   submit(form) {
-    return [{ title: form.title.value, releaseYear: form.releaseYear.value, albumName: form.albumName.value }, "album"];
+    return [{ title: form.title.value, releaseYear: form.releaseYear.value, albumName: form.albumName.value }, "albums"];
   }
 }
 

@@ -18,15 +18,15 @@ class ArtistCreate extends CreateItemRenderer {
   render() {
     const html = /*html*/ `
     <label for="name">Name</label>
-    <input type="text" name="name">
+    <input type="text" name="name" required="true">
     <label for="birthdate">Birthdate</label>
-    <input type="date" name="birthdate">
+    <input type="date" name="birthdate"  required="true">
     `;
 
     return super.render(html);
   }
   submit(form) {
-    return [{ name: form.name.value, birthdate: form.birthdate.value }, "artist"];
+    return [{ name: form.name.value, birthdate: form.birthdate.value }, "artists"];
   }
 }
 
