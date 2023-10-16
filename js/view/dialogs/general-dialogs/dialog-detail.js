@@ -11,4 +11,11 @@ export default class DetailsDialog extends Dialog {
     updateClicked(this.name, this.elementToShow);
     this.close()
   }
+
+  getAssociatedEntries(DetailRenderer, item){
+    console.log(item);
+    console.log(DetailRenderer);
+    this.DetailRenderer = DetailRenderer
+    return this.DetailRenderer.getItems(item)
+  }
 }

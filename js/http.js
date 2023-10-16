@@ -18,24 +18,48 @@ async function searchDatabase(whereToSearch, searchValue) {
   return tracksData;
 }
 
-async function findAlbumsByArtist(whereToSearch, searchID) {
-  const response = await fetch(`${endpoint}/${whereToSearch}/search/${searchID}`);
+async function findAlbumsByArtist(artistID) {
+  const response = await fetch(`${endpoint}/albums/search/${artistID}`);
+  // const response = await fetch(`${endpoint}/${whereToSearch}/search/${searchID}`);
   return await response.json();
 }
 
-async function findTracksByAlbum(whereToSearch, searchID) {
-  const response = await fetch(`${endpoint}/${whereToSearch}/${searchID}`);
-  const tracksData = await response.json();
-  for (const track of tracksData.tracks) {
-    track.durationSeconds = secondsToMinutesAndSeconds(track.durationSeconds);
-  }
+async function findTracksByAlbum(albumID) {
+  const response = await fetch(`${endpoint}/albums/${albumID}`);
+  // const response = await fetch(`${endpoint}/${whereToSearch}/${searchID}`);
+  let tracksData = await response.json();
+  tracksData.tracks = tracksData.tracks.map((track) => new Track(track));
+  console.log(tracksData);
   return tracksData;
+}
+
+async function getTrackDetails(trackTitle) {
+  console.log("TRACK TITLE:", trackTitle);
+  const response = await fetch(`${endpoint}/tracks/search?q=${trackTitle}`);
+  const responseObj = await response.json();
+  console.log(responseObj);
+  const trackInfo = (responseObj.track = new Track({
+    title: responseObj[0].title,
+    durationSeconds: responseObj[0].durationSeconds,
+    artistName: responseObj[0].artistName,
+    artistID: responseObj.map((entry) => {
+      return entry.artistID;
+    }),
+    albumID: responseObj.map((entry) => {
+      return entry.albumID;
+    }),
+    albumTitle: responseObj.map((entry) => {
+      return entry.albumTitle;
+    }),
+    id: responseObj[0].id,
+  }));
+  return await trackInfo;
 }
 
 async function getArtists() {
   const response = await fetch(`${endpoint}/artists`);
   const objects = await response.json();
-  console.log("RAW ARTISTS",objects);
+  console.log("RAW ARTISTS", objects);
   //   console.log(req);
   const artistsList = objects.map((jsonObj) => new Artist(jsonObj));
   return artistsList;
@@ -44,7 +68,7 @@ async function getArtists() {
 async function getAlbums() {
   const response = await fetch(`${endpoint}/albums`);
   const objects = await response.json();
-    console.log("RAW ALBUMS",objects);
+  console.log("RAW ALBUMS", objects);
   const albumsList = objects.map((jsonObj) => new Album(jsonObj));
   // console.log(albumsList);
   return albumsList;
@@ -53,7 +77,7 @@ async function getAlbums() {
 async function getTracks() {
   const response = await fetch(`${endpoint}/tracks`);
   const objects = await response.json();
-  console.log("RAW TRACKS",objects);
+  console.log("RAW TRACKS", objects);
   const trackList = objects.map((jsonObj) => new Track(jsonObj));
 
   return trackList;
@@ -62,7 +86,7 @@ async function getTracks() {
 async function createElement(obj, whereToPost) {
   console.log("artist obj", obj);
   const elementToCreate = whereToPost == "tracks" ? new Track(obj) : whereToPost == "albums" ? new Album(obj) : new Artist(obj);
-  console.log("about to create this element!",JSON.stringify(elementToCreate));
+  console.log("about to create this element!", JSON.stringify(elementToCreate));
   const response = await fetch(`${endpoint}/${whereToPost}`, {
     method: "POST",
     body: JSON.stringify(elementToCreate),
@@ -90,4 +114,4 @@ async function updateElement(obj, whereToPost) {
   return response.ok;
 }
 
-export { updateElement, createElement, getArtists, getAlbums, getTracks, searchDatabase, findAlbumsByArtist, findTracksByAlbum };
+export { getTrackDetails, updateElement, createElement, getArtists, getAlbums, getTracks, searchDatabase, findAlbumsByArtist, findTracksByAlbum };

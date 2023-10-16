@@ -1,16 +1,22 @@
-import Dialog from "../general-dialogs/dialog-super.js";
-
+import { findTracksByAlbum } from "../../../http.js";
 import CreateItemRenderer from "../general-dialogs/dialog-items.js";
-import DetailsDialog from "../general-dialogs/dialog-detail.js";
-import CreateDialog from "../general-dialogs/dialog-create.js";
+
 class AlbumDetails extends CreateItemRenderer {
   render(albumToShow) {
+    let trackString = "";
+    albumToShow.tracks.forEach((track) => (trackString += `<li>${track.title} - ${track.duration}</li>`));
     const html = /*html*/ `
-    <p>${albumToShow.title}</p>
-    <p>${albumToShow.releaseYear}</p>
-    <p>${albumToShow.artistName}</p>
+    <p>Title - ${albumToShow.title}</p>
+    <p>Made by - ${albumToShow.artist}</p>
+    <p>Released in - ${albumToShow.releaseYear}</p>
+    <p>Tracks on this album:</p>
+    ${trackString}
     `;
     return super.render(html, "update");
+  }
+
+  static async getItems(album) {
+    return await findTracksByAlbum("albums", album._id);
   }
 }
 
@@ -25,6 +31,8 @@ class AlbumCreate extends CreateItemRenderer {
     <input type="text" name="albumName">
     <label for="artistID">Artist name</label>
     <select name="artistID"></select>
+        <label for="check">Do you wish to add tracks as well?</label>
+    <input type="checkbox" name="check">
     `;
 
     return super.render(html);

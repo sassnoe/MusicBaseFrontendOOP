@@ -78,13 +78,15 @@ function handleSearchAndFilter(params) {
   }
 }
 
-function itemClicked(item, name) {
+async function itemClicked(item, name) {
   console.log("item", item);
   console.log("name", name);
-  let detailRenderer = name == "#artists" ? ArtistDetails : name == "#tracks" ? TrackDetails : AlbumDetails;
+  let detailRenderer = name == "#artists" ? ArtistDetails : name == "#tracks" ? TrackDetails :  AlbumDetails;
 
   console.log(detailRenderer);
-  detailDialog.render(detailRenderer, item);
+  const matchingInfo = await detailDialog.getAssociatedEntries(detailRenderer, item);
+  console.log("FOUND?",matchingInfo);
+  detailDialog.render(detailRenderer, matchingInfo);
   // const idToLookFor = event.target.parentElement.id;
   // const whereToLook = event.target.parentElement.parentElement.id.split("-")[0];
 

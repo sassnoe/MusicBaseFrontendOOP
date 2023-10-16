@@ -1,12 +1,28 @@
 import CreateItemRenderer from "../general-dialogs/dialog-items.js";
+import { getTrackDetails } from "../../../http.js";
 
 class TrackDetails extends CreateItemRenderer {
-  render(trackToShow) {
+  render(trackWithInfo) {
+    let artistString = "";
+    if (trackWithInfo.artistName instanceof Array) {
+      trackWithInfo.artistName.forEach((artistName) => (artistString += artistName));
+    } else {
+      artistString = trackWithInfo.artistName;
+    }
+    let albumList = "";
+    trackWithInfo.albumTitle.forEach((album) => (albumList += `<li>${album}</li>`));
     const html = /*html*/ `
-    <p>${trackToShow.title}</p>
-    <p>${trackToShow.duration}</p>
+    <p>Title ${trackWithInfo.title}</p>
+    <p>Length ${trackWithInfo.duration}</p>
+    <p>Made by ${artistString}</p>
+    <p>Featured on ${trackWithInfo.albumTitle.length == 1 ? "this album" : "these albums"}</p>
+    ${albumList}
     `;
     return super.render(html, "update");
+  }
+
+  static async getItems(track) {
+    return await getTrackDetails(track.title);
   }
 }
 
