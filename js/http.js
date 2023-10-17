@@ -108,7 +108,7 @@ async function updateElement(obj, whereToPost) {
   // const elementToJSON = JSON.stringify(elementToCreate);
   // console.log("THIS THINGY IS ABOUT TO GET CREATED:", elementToJSON);
   const response = await fetch(`${endpoint}/${whereToPost}`, {
-    method: "POST",
+    method: "PUT",
     body: JSON.stringify(elementToCreate),
     headers: {
       "Content-Type": "application/json",
