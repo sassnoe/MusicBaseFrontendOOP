@@ -56,6 +56,7 @@ class AlbumUpdate extends CreateItemRenderer {
         <label for="artistID">Name of artist</label>
     <select name="artistID" id="artistID"></select>
     `;
+    console.log(album);
     return super.render(html, "update");
   }
   submit(form) {
