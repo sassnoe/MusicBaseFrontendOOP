@@ -1,4 +1,4 @@
-import {getArtists, getAlbums, getTracks } from "./http.js";
+import { getArtists, getAlbums, getTracks } from "./http.js";
 import ListRenderer from "./view/listrenderer.js";
 import ArtistRenderer from "./view/rendererArtist.js";
 import AlbumRenderer from "./view/rendererAlbum.js";
