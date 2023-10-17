@@ -10,12 +10,13 @@ class ArtistDetails extends CreateItemRenderer {
       albumString += "<p>Albums made:</p>";
       artistAndMaybeAlbums.forEach((entry) => (albumString += `<li>${entry.title} - released in ${entry.releaseYear}</li>`));
     }
-    const html = /*html*/ `
+    let html = /*html*/ `
     <p>${artistAndMaybeAlbums.name}</p>
     <p>Born in ${artistAndMaybeAlbums.birthdate}</p>
-    
     ${albumString}
     `;
+    html += super.addDelete();
+    console.log("html", html);
     return super.render(html, "update");
   }
   static async getItems(artist) {

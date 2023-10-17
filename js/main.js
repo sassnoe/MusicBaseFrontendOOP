@@ -54,6 +54,12 @@ function initView() {
 
   allLists.set("tracks", tracksList).set("albums", albumsList).set("artists", artistsList);
 }
+function initDialogs() {
+  updateDialog = new UpdateDialog("update");
+  createDialog = new CreateDialog("create");
+  deleteDialog = new DeleteDialog("delete");
+  detailDialog = new DetailsDialog("details");
+}
 
 function addEventListeners(params) {
   document.querySelector("#searchBar").addEventListener("keydown", handleSearchAndFilter);
@@ -90,18 +96,6 @@ async function itemClicked(item, name) {
     matchingInfo = item;
   }
   detailDialog.render(detailRenderer, matchingInfo);
-  // const idToLookFor = event.target.parentElement.id;
-  // const whereToLook = event.target.parentElement.parentElement.id.split("-")[0];
-
-  // const correctList = allLists.get(whereToLook);
-  // const entryToUse = correctList._list.find((ele) => ele._id == idToLookFor);
-}
-
-function initDialogs(params) {
-  updateDialog = new UpdateDialog("update");
-  createDialog = new CreateDialog("create");
-  deleteDialog = new DeleteDialog("delete");
-  detailDialog = new DetailsDialog("details");
 }
 
 function createNewClicked(event) {
@@ -139,13 +133,29 @@ function updateClicked(classObj, item) {
   updateDialog.render(renderer, item, additionalList);
 }
 
+function deleteClicked(where, objToDelete) {
+  if (where.name.includes("Album")) {
+    renderer = AlbumDelete;
+  } else if (where.name.includes("Track")) {
+    renderer = TrackDelete;
+  } else if (where.name.includes("Artist")) {
+    renderer = ArtistDelete;
+  } else {
+    console.error("INCORRECT where THINGY (look in delete clicked)");
+  }
+  console.log("this is to be deleted", clickedElement);
+  deleteDialog.render(renderer, objToDelete);
+}
+
 async function refreshList(whichOne) {
   console.log("which one?", whichOne);
   const correctList = allLists.get(whichOne);
-  if (correctList !== undefined)
-{  await correctList.refreshList()
-  correctList.render()}
-  else {console.error("Couldn't find the right list to update!!!");}
+  if (correctList !== undefined) {
+    await correctList.refreshList();
+    correctList.render();
+  } else {
+    console.error("Couldn't find the right list to update!!!");
+  }
 }
 
-export { itemClicked, updateClicked, refreshList };
+export { itemClicked, updateClicked, refreshList, deleteClicked };

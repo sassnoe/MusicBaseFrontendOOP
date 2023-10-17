@@ -1,4 +1,4 @@
-import { refreshList } from "../../../main.js";
+import { refreshList, deleteClicked } from "../../../main.js";
 export default class Dialog {
   constructor(id) {
     this.dialog = document.createElement("dialog");
@@ -27,8 +27,13 @@ export default class Dialog {
     }
     this.dialog.querySelector(".button-close").addEventListener("click", this.close.bind(this));
     this.dialog.querySelector("form").addEventListener("submit", this.submit.bind(this));
+    this.dialog.querySelector(".button-delete")?.addEventListener("click", () => deleteClicked(this.name, this.elementToShow));
     this.show();
   }
+
+  // deleteClicked(){
+  //   console.log("delete clicked!");
+  // }
 
   submit(event) {
     console.log("THIS DIALOG", this.dialog);
@@ -39,6 +44,6 @@ export default class Dialog {
 
   refresh(where) {
     refreshList(where);
-    this.close()
+    this.close();
   }
 }
