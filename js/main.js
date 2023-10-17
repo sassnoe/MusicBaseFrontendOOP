@@ -119,6 +119,27 @@ function createNewClicked(event) {
   createDialog.render(renderer, undefined, additionalList);
 }
 
+function updateClicked(classObj, item) {
+  let renderer;
+  let additionalList = undefined;
+  if (classObj.name.includes("Album")) {
+    renderer = AlbumUpdate;
+    additionalList = artists;
+  } else if (classObj.name.includes("Track")) {
+    renderer = TrackUpdate;
+    additionalList = [artists, albums];
+  } else {
+    renderer = ArtistUpdate;
+  }
+  updateDialog.render(renderer, item, additionalList);
+}
+
+function failedCreation(params) {}
+
+export { itemClicked, updateClicked };
+
+
+
 // async function createSomething(objToCreate, where) {
 //   // const kindOfCreation = where
 //   if (where == "track") {
@@ -144,22 +165,3 @@ function createNewClicked(event) {
 //   }
 //   updateElement()
 // }
-
-function updateClicked(classObj, item) {
-  let renderer;
-  let additionalList = undefined;
-  if (classObj.name.includes("Album")) {
-    renderer = AlbumUpdate;
-    additionalList = artists;
-  } else if (classObj.name.includes("Track")) {
-    renderer = TrackUpdate;
-    additionalList = [artists, albums];
-  } else {
-    renderer = ArtistUpdate;
-  }
-  updateDialog.render(renderer, item, additionalList);
-}
-
-function failedCreation(params) {}
-
-export { itemClicked, updateClicked };

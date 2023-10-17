@@ -19,7 +19,9 @@ async function searchDatabase(whereToSearch, searchValue) {
 }
 
 async function findAlbumsByArtist(artistID) {
+
   const response = await fetch(`${endpoint}/albums/search/${artistID}`);
+
   // const response = await fetch(`${endpoint}/${whereToSearch}/search/${searchID}`);
   return await response.json();
 }
@@ -28,6 +30,7 @@ async function findTracksByAlbum(albumID) {
   const response = await fetch(`${endpoint}/albums/${albumID}`);
   // const response = await fetch(`${endpoint}/${whereToSearch}/${searchID}`);
   let tracksData = await response.json();
+  console.log(tracksData);
   tracksData.tracks = tracksData.tracks.map((track) => new Track(track));
   console.log(tracksData);
   return tracksData;

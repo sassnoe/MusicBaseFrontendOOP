@@ -3,19 +3,20 @@ import CreateItemRenderer from "../general-dialogs/dialog-items.js";
 
 class ArtistDetails extends CreateItemRenderer {
   render(artistAndAlbums) {
+    console.log(artistAndAlbums);
     // console.log("this is what artist details shows", artistToShow);
-    let albumString = ""
+    let albumString = "";
     artistAndAlbums.forEach((entry) => (albumString += `<li>Title: ${entry.title} - released in ${entry.releaseYear}</li>`));
     const html = /*html*/ `
     <p>${artistAndAlbums[0].name}</p>
-    <p>${artistAndAlbums[0].birthdate}</p>
+    <p>Born in ${artistAndAlbums[0].birthdate}</p>
     <p>Albums made by this artist:</p>
     ${albumString}
     `;
     return super.render(html, "update");
   }
   static async getItems(artist) {
-    return await findAlbumsByArtist("albums", artist._id);
+    return await findAlbumsByArtist(artist._id);
   }
 }
 
@@ -42,11 +43,12 @@ class ArtistCreate extends CreateItemRenderer {
 
 class ArtistUpdate extends CreateItemRenderer {
   render(artistData) {
+    console.log("@@@@@@@@@@",artistData);
     const html = /*html*/ `
-    <label for="name">${artistData.name}</label>
-    <input type="text" name="name" value="${artistData.name}">
-    <label for="birthdate">${artistData.name}</label>
-    <input type="date" name="birthdate" value="${artistData.birthdate}">
+    <label for="name">${artistData[0].name}</label>
+    <input type="text" name="name" value="${artistData[0].name}">
+    <label for="birthdate">${artistData[0].name}</label>
+    <input type="date" name="birthdate" value="${artistData[0].birthdate}">
     `;
 
     return super.render(html);
