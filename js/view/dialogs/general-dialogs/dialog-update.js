@@ -7,9 +7,11 @@ export default class UpdateDialog extends Dialog {
     super(id);
   }
 
-  submit(event) {
+  async submit(event) {
     super.submit(event)
-    updateElement(this.submitObj, this.where);
-    this.close()
+    console.log("SHOW THIS:",this.elementToShow);
+    if (await updateElement(this.submitObj, this.where, this.elementToShow._id)){
+      this.refresh(this.where)
+    }
   }
 }

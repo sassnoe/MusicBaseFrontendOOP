@@ -1,3 +1,4 @@
+import { refreshList } from "../../../main.js";
 export default class Dialog {
   constructor(id) {
     this.dialog = document.createElement("dialog");
@@ -30,8 +31,14 @@ export default class Dialog {
   }
 
   submit(event) {
+    console.log("THIS DIALOG", this.dialog);
     event.preventDefault();
     this.form = event.target;
     [this.submitObj, this.where] = this.detailRenderer.submit(this.form);
+  }
+
+  refresh(where) {
+    refreshList(where);
+    this.close()
   }
 }

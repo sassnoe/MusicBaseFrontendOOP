@@ -1,4 +1,4 @@
-import {getArtists, getAlbums, getTracks } from "./http.js";
+import { getArtists, getAlbums, getTracks } from "./http.js";
 import ListRenderer from "./view/listrenderer.js";
 import ArtistRenderer from "./view/rendererArtist.js";
 import AlbumRenderer from "./view/rendererAlbum.js";
@@ -41,14 +41,14 @@ async function initApp() {
 }
 
 function initView() {
-  artistsList = new ListRenderer(artists, "#artists-table", ArtistRenderer);
+  artistsList = new ListRenderer(artists, "#artists-table", ArtistRenderer, getArtists);
   console.log(artistsList);
   artistsList.render();
 
-  albumsList = new ListRenderer(albums, "#albums-table", AlbumRenderer);
+  albumsList = new ListRenderer(albums, "#albums-table", AlbumRenderer, getAlbums);
   albumsList.render();
 
-  tracksList = new ListRenderer(tracks, "#tracks-table", TrackRenderer);
+  tracksList = new ListRenderer(tracks, "#tracks-table", TrackRenderer, getTracks);
   // console.log("track list:",tracksList);
   tracksList.render();
 
@@ -84,8 +84,11 @@ async function itemClicked(item, name) {
   let detailRenderer = name == "#artists" ? ArtistDetails : name == "#tracks" ? TrackDetails : AlbumDetails;
 
   console.log(detailRenderer);
-  const matchingInfo = await detailDialog.getAssociatedEntries(detailRenderer, item);
-  console.log("FOUND?", matchingInfo);
+  let matchingInfo = await detailDialog.getAssociatedEntries(detailRenderer, item);
+  console.log("FOUND?", matchingInfo.length);
+  if (matchingInfo.length == 0) {
+    matchingInfo = item;
+  }
   detailDialog.render(detailRenderer, matchingInfo);
   // const idToLookFor = event.target.parentElement.id;
   // const whereToLook = event.target.parentElement.parentElement.id.split("-")[0];
@@ -136,30 +139,13 @@ function updateClicked(classObj, item) {
   updateDialog.render(renderer, item, additionalList);
 }
 
-export { itemClicked, updateClicked };
+async function refreshList(whichOne) {
+  console.log("which one?", whichOne);
+  const correctList = allLists.get(whichOne);
+  if (correctList !== undefined)
+{  await correctList.refreshList()
+  correctList.render()}
+  else {console.error("Couldn't find the right list to update!!!");}
+}
 
-// async function createSomething(objToCreate, where) {
-//   // const kindOfCreation = where
-//   if (where == "track") {
-//     createTrack(objToCreate);
-//   } else if (where == "artist") {
-//     // console.log("create something check", await createArtist(objToCreate))
-//     return await createArtist(objToCreate)
-
-//   } else if (where == "album") {
-//     createAlbum(objToCreate);
-//   }
-
-//   createSomething
-// }
-
-// function updateSomething(objToUpdate, where) {
-//   if (where == "track") {
-//     updateTrack(objToUpdate);
-//   } else if (where == "artist") {
-//     updateArtist(objToUpdate);
-//   } else if (where == "album") {
-//     updateAlbum(objToUpdate);
-//   }
-//   updateElement()
-// }
+export { itemClicked, updateClicked, refreshList };

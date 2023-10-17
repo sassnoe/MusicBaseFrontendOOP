@@ -1,16 +1,25 @@
 import { itemClicked } from "../main.js";
 
 export default class ListRenderer {
-  constructor(list, container, itemRenderer) {
+  constructor(list, container, itemRenderer, listUpdater) {
     this._list = list;
     this._itemRenderer = new itemRenderer();
     this._name = container;
     this._container = document.querySelector(container);
     this._tbody = this._container.querySelector("tbody");
+    this._listUpdater = listUpdater;
   }
 
   get name() {
     return this._name;
+  }
+
+  set list(newList) {
+    this._list = newList;
+  }
+
+  async refreshList() {
+    this._list = await this._listUpdater();
   }
   render(filteredList = this._list) {
     console.log("FILTERED LIST:", filteredList);
@@ -26,7 +35,7 @@ export default class ListRenderer {
     this._searchValue = searchValue;
     this.render(
       this._list.filter((entry) => {
-        return entry.title?.toLowerCase().includes(searchValue.toLowerCase()) || entry.name?.toLowerCase().includes(searchValue.toLowerCase())         
+        return entry.title?.toLowerCase().includes(searchValue.toLowerCase()) || entry.name?.toLowerCase().includes(searchValue.toLowerCase());
       })
     );
   }
