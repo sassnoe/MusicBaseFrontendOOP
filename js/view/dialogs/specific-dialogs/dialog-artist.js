@@ -2,17 +2,21 @@ import { findAlbumsByArtist } from "../../../http.js";
 import CreateItemRenderer from "../general-dialogs/dialog-items.js";
 
 class ArtistDetails extends CreateItemRenderer {
-  render(artistAndAlbums) {
-    console.log(artistAndAlbums);
+  render(artistAndMaybeAlbums) {
+    console.log(artistAndMaybeAlbums);
     // console.log("this is what artist details shows", artistToShow);
     let albumString = "";
-    artistAndAlbums.forEach((entry) => (albumString += `<li>Title: ${entry.title} - released in ${entry.releaseYear}</li>`));
-    const html = /*html*/ `
-    <p>${artistAndAlbums[0].name}</p>
-    <p>Born in ${artistAndAlbums[0].birthdate}</p>
-    <p>Albums made by this artist:</p>
+    if (artistAndMaybeAlbums instanceof Array) {
+      albumString += "<p>Albums made:</p>";
+      artistAndMaybeAlbums.forEach((entry) => (albumString += `<li>${entry.title} - released in ${entry.releaseYear}</li>`));
+    }
+    let html = /*html*/ `
+    <p>${artistAndMaybeAlbums.name}</p>
+    <p>Born in ${artistAndMaybeAlbums.birthdate}</p>
     ${albumString}
     `;
+    html += super.addDelete();
+    console.log("html", html);
     return super.render(html, "update");
   }
   static async getItems(artist) {
@@ -43,26 +47,18 @@ class ArtistCreate extends CreateItemRenderer {
 
 class ArtistUpdate extends CreateItemRenderer {
   render(artistData) {
-    console.log("@@@@@@@@@@",artistData);
+    console.log("@@@@@@@@@@", artistData);
     const html = /*html*/ `
-    <label for="name">${artistData[0].name}</label>
-    <input type="text" name="name" value="${artistData[0].name}">
-    <label for="birthdate">${artistData[0].name}</label>
-    <input type="date" name="birthdate" value="${artistData[0].birthdate}">
+    <label for="name">${artistData.name}</label>
+    <input type="text" name="name" value="${artistData.name}">
+    <label for="birthdate">Date of birth</label>
+    <input type="date" name="birthdate" value="${artistData.birthdate}">
     `;
 
-    return super.render(html);
+    return super.render(html, "update");
   }
-  submit() {
-    const form = this.dialog.querySelector("form");
-    this.artist = new Artist({
-      name: form.name.value,
-      genre: form.genre.value,
-      image: form.image.value,
-      description: form.description.value,
-    });
-
-    form.reset();
+  submit(form) {
+    return [{ name: form.name.value, birthdate: form.birthdate.value }, "artists"];
   }
 }
 

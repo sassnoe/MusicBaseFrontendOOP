@@ -41,18 +41,24 @@ async function initApp() {
 }
 
 function initView() {
-  artistsList = new ListRenderer(artists, "#artists-table", ArtistRenderer);
+  artistsList = new ListRenderer(artists, "#artists-table", ArtistRenderer, getArtists);
   console.log(artistsList);
   artistsList.render();
 
-  albumsList = new ListRenderer(albums, "#albums-table", AlbumRenderer);
+  albumsList = new ListRenderer(albums, "#albums-table", AlbumRenderer, getAlbums);
   albumsList.render();
 
-  tracksList = new ListRenderer(tracks, "#tracks-table", TrackRenderer);
+  tracksList = new ListRenderer(tracks, "#tracks-table", TrackRenderer, getTracks);
   // console.log("track list:",tracksList);
   tracksList.render();
 
   allLists.set("tracks", tracksList).set("albums", albumsList).set("artists", artistsList);
+}
+function initDialogs() {
+  updateDialog = new UpdateDialog("update");
+  createDialog = new CreateDialog("create");
+  deleteDialog = new DeleteDialog("delete");
+  detailDialog = new DetailsDialog("details");
 }
 
 function addEventListeners(params) {
@@ -84,21 +90,12 @@ async function itemClicked(item, name) {
   let detailRenderer = name == "#artists" ? ArtistDetails : name == "#tracks" ? TrackDetails : AlbumDetails;
 
   console.log(detailRenderer);
-  const matchingInfo = await detailDialog.getAssociatedEntries(detailRenderer, item);
-  console.log("FOUND?", matchingInfo);
+  let matchingInfo = await detailDialog.getAssociatedEntries(detailRenderer, item);
+  console.log("FOUND?", matchingInfo.length);
+  if (matchingInfo.length == 0) {
+    matchingInfo = item;
+  }
   detailDialog.render(detailRenderer, matchingInfo);
-  // const idToLookFor = event.target.parentElement.id;
-  // const whereToLook = event.target.parentElement.parentElement.id.split("-")[0];
-
-  // const correctList = allLists.get(whereToLook);
-  // const entryToUse = correctList._list.find((ele) => ele._id == idToLookFor);
-}
-
-function initDialogs(params) {
-  updateDialog = new UpdateDialog("update");
-  createDialog = new CreateDialog("create");
-  deleteDialog = new DeleteDialog("delete");
-  detailDialog = new DetailsDialog("details");
 }
 
 function createNewClicked(event) {
@@ -136,30 +133,29 @@ function updateClicked(classObj, item) {
   updateDialog.render(renderer, item, additionalList);
 }
 
-export { itemClicked, updateClicked };
+function deleteClicked(where, objToDelete) {
+  if (where.name.includes("Album")) {
+    renderer = AlbumDelete;
+  } else if (where.name.includes("Track")) {
+    renderer = TrackDelete;
+  } else if (where.name.includes("Artist")) {
+    renderer = ArtistDelete;
+  } else {
+    console.error("INCORRECT where THINGY (look in delete clicked)");
+  }
+  console.log("this is to be deleted", clickedElement);
+  deleteDialog.render(renderer, objToDelete);
+}
 
-// async function createSomething(objToCreate, where) {
-//   // const kindOfCreation = where
-//   if (where == "track") {
-//     createTrack(objToCreate);
-//   } else if (where == "artist") {
-//     // console.log("create something check", await createArtist(objToCreate))
-//     return await createArtist(objToCreate)
+async function refreshList(whichOne) {
+  console.log("which one?", whichOne);
+  const correctList = allLists.get(whichOne);
+  if (correctList !== undefined) {
+    await correctList.refreshList();
+    correctList.render();
+  } else {
+    console.error("Couldn't find the right list to update!!!");
+  }
+}
 
-//   } else if (where == "album") {
-//     createAlbum(objToCreate);
-//   }
-
-//   createSomething
-// }
-
-// function updateSomething(objToUpdate, where) {
-//   if (where == "track") {
-//     updateTrack(objToUpdate);
-//   } else if (where == "artist") {
-//     updateArtist(objToUpdate);
-//   } else if (where == "album") {
-//     updateAlbum(objToUpdate);
-//   }
-//   updateElement()
-// }
+export { itemClicked, updateClicked, refreshList, deleteClicked };

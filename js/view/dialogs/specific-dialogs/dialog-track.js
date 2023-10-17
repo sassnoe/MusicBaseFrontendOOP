@@ -12,10 +12,9 @@ class TrackDetails extends CreateItemRenderer {
     let albumList = "";
     trackWithInfo.albumTitle.forEach((album) => (albumList += `<li>${album}</li>`));
     const html = /*html*/ `
-    <p>Title ${trackWithInfo.title}</p>
-    <p>Length ${trackWithInfo.duration}</p>
+    <p>${trackWithInfo.title} - ${trackWithInfo.duration}</p>
     <p>Made by ${artistString}</p>
-    <p>Featured on ${trackWithInfo.albumTitle.length == 1 ? "this album" : "these albums"}</p>
+    <p>Featured on ${trackWithInfo.albumTitle.length == 1 ? "this album:" : "these albums:"}</p>
     ${albumList}
     `;
     return super.render(html, "update");

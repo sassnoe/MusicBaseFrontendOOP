@@ -32,8 +32,8 @@ class AlbumCreate extends CreateItemRenderer {
     <label for="artistID">Name of artist</label>
     <select name="artistID" id="artistID"></select>
         `;
-//         <label for="check">Do you wish to add tracks as well?</label>
-// <input type="checkbox" name="check">
+    //         <label for="check">Do you wish to add tracks as well?</label>
+    // <input type="checkbox" name="check">
 
     return super.render(html);
   }
@@ -53,14 +53,17 @@ class AlbumUpdate extends CreateItemRenderer {
     <input type="text" name="title" value="${album.title}">
     <label for="releaseYear">Release year</label>
     <input type="number" name="releaseYear" value="${album.releaseYear}">
+        <label for="artistID">Name of artist</label>
+    <select name="artistID" id="artistID"></select>
     `;
     return super.render(html, "update");
   }
   submit(form) {
-    return [{ title: form.title.value, releaseYear: form.releaseYear.value, artistName: form.artistName.value }, "album"];
+    return [{ title: form.title.value, releaseYear: form.releaseYear.value, artistID: form.artistID.value }, "album"];
   }
-
-
+  fillList(artistAndAlbumArray, select, extraInfo) {
+    super.fillList(artistAndAlbumArray, select.querySelector("#artistID"));
+  }
 }
 
 class AlbumDelete extends CreateItemRenderer {

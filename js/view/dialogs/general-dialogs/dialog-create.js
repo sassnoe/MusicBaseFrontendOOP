@@ -11,7 +11,7 @@ export default class CreateDialog extends Dialog {
   async submit(event) {
     super.submit(event);
     if (await createElement(this.submitObj, this.where)) {
-      this.close();
+      this.refresh(this.where);
     } else {
       console.log("FAILURE");
     }

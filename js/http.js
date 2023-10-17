@@ -19,21 +19,26 @@ async function searchDatabase(whereToSearch, searchValue) {
 }
 
 async function findAlbumsByArtist(artistID) {
-
   const response = await fetch(`${endpoint}/albums/search/${artistID}`);
-
+  const toObj = await response.json();
+  console.log("to obj", toObj);
+  if (toObj.length > 0) {
+    toObj.id = toObj[0]?.artistId;
+    toObj.name = toObj[0]?.name;
+    toObj.birthdate = toObj[0]?.birthdate;
+  }
   // const response = await fetch(`${endpoint}/${whereToSearch}/search/${searchID}`);
-  return await response.json();
+  return toObj;
 }
 
 async function findTracksByAlbum(albumID) {
-  console.log("ALBUM ID",albumID);
+  console.log("ALBUM ID", albumID);
   const response = await fetch(`${endpoint}/albums/${albumID}`);
   // const response = await fetch(`${endpoint}/${whereToSearch}/${searchID}`);
   let tracksData = await response.json();
   console.log(tracksData);
   tracksData.tracks = tracksData.tracks.map((track) => new Track(track));
-  console.log(tracksData);
+  // console.log(tracksData);
   return tracksData;
 }
 
@@ -90,7 +95,7 @@ async function getTracks() {
 async function createElement(obj, whereToPost) {
   // console.log("artist obj", obj);
   const elementToCreate = whereToPost == "tracks" ? new Track(obj) : whereToPost == "albums" ? new Album(obj) : new Artist(obj);
-  // console.log("about to create this element!", JSON.stringify(elementToCreate));
+  console.log("about to create this element!", JSON.stringify(elementToCreate));
   const response = await fetch(`${endpoint}/${whereToPost}`, {
     method: "POST",
     body: JSON.stringify(elementToCreate),
@@ -102,12 +107,12 @@ async function createElement(obj, whereToPost) {
   return response.ok;
 }
 
-async function updateElement(obj, whereToPost) {
+async function updateElement(obj, whereToPost, id) {
   console.log("artist obj", obj);
   const elementToCreate = whereToPost == "tracks" ? new Track(obj) : whereToPost == "albums" ? new Album(obj) : new Artist(obj);
   // const elementToJSON = JSON.stringify(elementToCreate);
   // console.log("THIS THINGY IS ABOUT TO GET CREATED:", elementToJSON);
-  const response = await fetch(`${endpoint}/${whereToPost}`, {
+  const response = await fetch(`${endpoint}/${whereToPost}/${id}`, {
     method: "PUT",
     body: JSON.stringify(elementToCreate),
     headers: {
