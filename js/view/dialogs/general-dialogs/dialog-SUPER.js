@@ -14,7 +14,9 @@ export default class Dialog {
   }
 
   render(detailRenderer, elementToShow, listToInclude) {
+    // console.log("LIST TO INCLUDE",listToInclude);
     this.name = detailRenderer;
+    // console.log("NAME@@@@@@@@@@@@",this.name);
     this.elementToShow = elementToShow;
     this.detailRenderer = new detailRenderer();
     const html = this.detailRenderer.render(elementToShow);

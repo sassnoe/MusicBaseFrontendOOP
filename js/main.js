@@ -1,4 +1,4 @@
-import { createElement, getArtists, getAlbums, getTracks } from "./http.js";
+import {getArtists, getAlbums, getTracks } from "./http.js";
 import ListRenderer from "./view/listrenderer.js";
 import ArtistRenderer from "./view/rendererArtist.js";
 import AlbumRenderer from "./view/rendererAlbum.js";
@@ -81,11 +81,11 @@ function handleSearchAndFilter(params) {
 async function itemClicked(item, name) {
   console.log("item", item);
   console.log("name", name);
-  let detailRenderer = name == "#artists" ? ArtistDetails : name == "#tracks" ? TrackDetails :  AlbumDetails;
+  let detailRenderer = name == "#artists" ? ArtistDetails : name == "#tracks" ? TrackDetails : AlbumDetails;
 
   console.log(detailRenderer);
   const matchingInfo = await detailDialog.getAssociatedEntries(detailRenderer, item);
-  console.log("FOUND?",matchingInfo);
+  console.log("FOUND?", matchingInfo);
   detailDialog.render(detailRenderer, matchingInfo);
   // const idToLookFor = event.target.parentElement.id;
   // const whereToLook = event.target.parentElement.parentElement.id.split("-")[0];
@@ -128,17 +128,15 @@ function updateClicked(classObj, item) {
   } else if (classObj.name.includes("Track")) {
     renderer = TrackUpdate;
     additionalList = [artists, albums];
-  } else {
+  } else if (classObj.name.includes("Artist")) {
     renderer = ArtistUpdate;
+  } else {
+    console.error("INCORRECT CLASSOBJ THINGY (look in update clicked)");
   }
   updateDialog.render(renderer, item, additionalList);
 }
 
-function failedCreation(params) {}
-
 export { itemClicked, updateClicked };
-
-
 
 // async function createSomething(objToCreate, where) {
 //   // const kindOfCreation = where

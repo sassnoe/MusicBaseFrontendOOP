@@ -27,6 +27,7 @@ async function findAlbumsByArtist(artistID) {
 }
 
 async function findTracksByAlbum(albumID) {
+  console.log("ALBUM ID",albumID);
   const response = await fetch(`${endpoint}/albums/${albumID}`);
   // const response = await fetch(`${endpoint}/${whereToSearch}/${searchID}`);
   let tracksData = await response.json();
@@ -87,9 +88,9 @@ async function getTracks() {
 }
 
 async function createElement(obj, whereToPost) {
-  console.log("artist obj", obj);
+  // console.log("artist obj", obj);
   const elementToCreate = whereToPost == "tracks" ? new Track(obj) : whereToPost == "albums" ? new Album(obj) : new Artist(obj);
-  console.log("about to create this element!", JSON.stringify(elementToCreate));
+  // console.log("about to create this element!", JSON.stringify(elementToCreate));
   const response = await fetch(`${endpoint}/${whereToPost}`, {
     method: "POST",
     body: JSON.stringify(elementToCreate),

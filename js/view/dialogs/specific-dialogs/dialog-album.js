@@ -16,7 +16,7 @@ class AlbumDetails extends CreateItemRenderer {
   }
 
   static async getItems(album) {
-    return await findTracksByAlbum("albums", album._id);
+    return await findTracksByAlbum(album._id);
   }
 }
 
@@ -24,21 +24,25 @@ class AlbumCreate extends CreateItemRenderer {
   render() {
     const html = /*html*/ `
     <label for="title">Title</label>
-    <input type="text" name="name">
+    <input type="text" name="title">
     <label for="releaseYear">Release year</label>
     <input type="number" name="releaseYear">
     <label for="albumName">Album name</label>
     <input type="text" name="albumName">
-    <label for="artistID">Artist name</label>
-    <select name="artistID"></select>
-        <label for="check">Do you wish to add tracks as well?</label>
-    <input type="checkbox" name="check">
-    `;
+    <label for="artistID">Name of artist</label>
+    <select name="artistID" id="artistID"></select>
+        `;
+//         <label for="check">Do you wish to add tracks as well?</label>
+// <input type="checkbox" name="check">
 
     return super.render(html);
   }
+
+  fillList(artistAndAlbumArray, select, extraInfo) {
+    super.fillList(artistAndAlbumArray, select.querySelector("#artistID"));
+  }
   submit(form) {
-    return [{ title: form.title.value, releaseYear: form.releaseYear.value, albumName: form.albumName.value }, "albums"];
+    return [{ title: form.title.value, releaseYear: form.releaseYear.value, artistID: form.artistID.value }, "albums"];
   }
 }
 
@@ -49,14 +53,14 @@ class AlbumUpdate extends CreateItemRenderer {
     <input type="text" name="title" value="${album.title}">
     <label for="releaseYear">Release year</label>
     <input type="number" name="releaseYear" value="${album.releaseYear}">
-        <label for="artistName">Artist name</label>
-    <input type="text" name="artistName" value="${album.artistName}">
     `;
     return super.render(html, "update");
   }
   submit(form) {
     return [{ title: form.title.value, releaseYear: form.releaseYear.value, artistName: form.artistName.value }, "album"];
   }
+
+
 }
 
 class AlbumDelete extends CreateItemRenderer {
