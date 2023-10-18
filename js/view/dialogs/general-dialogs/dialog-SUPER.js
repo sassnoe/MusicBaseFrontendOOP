@@ -25,8 +25,8 @@ export default class Dialog {
     if (listToInclude) {
       this.detailRenderer.fillList(listToInclude, this.dialog, elementToShow);
     }
-    this.dialog.querySelector(".button-close").addEventListener("click", this.close.bind(this));
-    this.dialog.querySelector("form").addEventListener("submit", this.submit.bind(this));
+    this.dialog.querySelector(".button-close")?.addEventListener("click", this.close.bind(this));
+    this.dialog.querySelector("form")?.addEventListener("submit", this.submit.bind(this));
     this.dialog.querySelector(".button-delete")?.addEventListener("click", () => deleteClicked(this.name, this.elementToShow));
     this.show();
   }

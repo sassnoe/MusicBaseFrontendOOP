@@ -12,7 +12,8 @@ class AlbumDetails extends CreateItemRenderer {
     <p>Tracks on this album:</p>
     ${trackString}
     `;
-    return super.render(html, "update");
+    const html2 =super.render(html, "update");
+    return super.addDelete(html2)
   }
 
   static async getItems(album) {
@@ -67,8 +68,10 @@ class AlbumUpdate extends CreateItemRenderer {
 }
 
 class AlbumDelete extends CreateItemRenderer {
-  render() {
-    const html = /*html*/ ``;
+  render(album) {
+    const html = /*html*/ `
+    <p>Are you ABSOLUTELY SURE that you wish to delete ${album.title}?</p>`;
+    return super.addDelete(html)
   }
 }
 

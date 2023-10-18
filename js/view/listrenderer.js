@@ -18,6 +18,10 @@ export default class ListRenderer {
     this._list = newList;
   }
 
+  get list(){
+    return this._list
+  }
+
   async refreshList() {
     this._list = await this._listUpdater();
   }

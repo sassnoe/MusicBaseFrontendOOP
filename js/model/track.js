@@ -4,9 +4,9 @@ export default class Track {
     this.title = obj.title;
     this.durationSeconds = typeof obj.durationSeconds == "string" ? this.setDuration(obj.durationSeconds) : obj.durationSeconds;
     this.artistName = obj.artistName;
-    this.artistIds = obj.artistID;
+    this.artistIds = [obj.artistID]
     this.albumTitle = obj.albumTitle;
-    this.albumIds = obj.albumID
+    this.albumIds = [obj.albumID]
     this._id = obj.id;
 
     Object.defineProperty(this, "_id", {
@@ -31,5 +31,10 @@ export default class Track {
   setDuration(timeInMinutesAndSeconds) {
     const minutesAndSecs = timeInMinutesAndSeconds.split(":");
     return minutesAndSecs[0] * 60 + Number(minutesAndSecs[1]);
+  }
+
+  verify(){
+    if (this.title && this.durationSeconds && this.albumIds && this.artistIds){return true}
+    else {return false}
   }
 }

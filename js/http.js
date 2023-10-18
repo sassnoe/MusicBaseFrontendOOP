@@ -62,7 +62,7 @@ async function getTrackDetails(trackTitle) {
     }),
     id: responseObj[0].id,
   }));
-  return await trackInfo;
+  return trackInfo;
 }
 
 async function getArtists() {
@@ -93,34 +93,40 @@ async function getTracks() {
 }
 
 async function createElement(obj, whereToPost) {
-  // console.log("artist obj", obj);
+  console.log("obj to create", obj);
   const elementToCreate = whereToPost == "tracks" ? new Track(obj) : whereToPost == "albums" ? new Album(obj) : new Artist(obj);
-  console.log("about to create this element!", JSON.stringify(elementToCreate));
-  const response = await fetch(`${endpoint}/${whereToPost}`, {
-    method: "POST",
-    body: JSON.stringify(elementToCreate),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  console.log(response);
-  return response.ok;
+  if (elementToCreate.verify()) {
+    console.log("about to create this element!", JSON.stringify(elementToCreate));
+    const response = await fetch(`${endpoint}/${whereToPost}`, {
+      method: "POST",
+      body: JSON.stringify(elementToCreate),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    console.log(response);
+    return response.ok;
+  } else {
+    console.error("failed creating");
+  }
 }
 
 async function updateElement(obj, whereToPost, id) {
   console.log("artist obj", obj);
   const elementToCreate = whereToPost == "tracks" ? new Track(obj) : whereToPost == "albums" ? new Album(obj) : new Artist(obj);
-  // const elementToJSON = JSON.stringify(elementToCreate);
-  // console.log("THIS THINGY IS ABOUT TO GET CREATED:", elementToJSON);
-  const response = await fetch(`${endpoint}/${whereToPost}/${id}`, {
-    method: "PUT",
-    body: JSON.stringify(elementToCreate),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  console.log(response);
-  return response.ok;
+  if (elementToCreate.verify() && id) {
+    const response = await fetch(`${endpoint}/${whereToPost}/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(elementToCreate),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    console.log(response);
+    return response.ok;
+  } else {
+    console.error("couldn't update that");
+  }
 }
 
 export { getTrackDetails, updateElement, createElement, getArtists, getAlbums, getTracks, searchDatabase, findAlbumsByArtist, findTracksByAlbum };

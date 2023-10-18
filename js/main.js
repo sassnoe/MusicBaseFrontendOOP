@@ -62,6 +62,7 @@ function initDialogs() {
 }
 
 function addEventListeners(params) {
+  document.querySelector("#searchBar").addEventListener("keyup", handleSearchAndFilter);
   document.querySelector("#searchBar").addEventListener("keydown", handleSearchAndFilter);
   document.querySelector("#tableSelect").addEventListener("change", handleSearchAndFilter);
   document.querySelectorAll(".create-btn").forEach((btn) => btn.addEventListener("click", createNewClicked));
@@ -91,7 +92,7 @@ async function itemClicked(item, name) {
 
   console.log(detailRenderer);
   let matchingInfo = await detailDialog.getAssociatedEntries(detailRenderer, item);
-  console.log("FOUND?", matchingInfo.length);
+  console.log("FOUND?", matchingInfo);
   if (matchingInfo.length == 0) {
     matchingInfo = item;
   }
@@ -107,10 +108,10 @@ function createNewClicked(event) {
     renderer = ArtistCreate;
   } else if (thingToCreate == "track") {
     renderer = TrackCreate;
-    additionalList = [artists, albums];
+    additionalList = [artistsList.list, albumsList.list];
   } else {
     renderer = AlbumCreate;
-    additionalList = artists;
+    additionalList = artistsList.list;
   }
 
   createDialog.render(renderer, undefined, additionalList);

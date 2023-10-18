@@ -17,7 +17,8 @@ class TrackDetails extends CreateItemRenderer {
     <p>Featured on ${trackWithInfo.albumTitle.length == 1 ? "this album:" : "these albums:"}</p>
     ${albumList}
     `;
-    return super.render(html, "update");
+    const html2 = super.render(html, "update");
+    return super.addDelete(html2);
   }
 
   static async getItems(track) {

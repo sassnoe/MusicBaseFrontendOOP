@@ -6,8 +6,8 @@ export default class CreateItemRenderer {
     </form>`;
   }
 
-  addDelete(){
-    return `<input type="button" class="button-delete" value="Delete"></input>`
+  addDelete(html){
+    return `${html}<input type="button" class="button-delete" value="Delete"></input>`
   }
   fillList(elementList, select, selectThisID) {
     console.log(elementList);

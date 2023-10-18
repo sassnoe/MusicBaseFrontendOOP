@@ -15,9 +15,8 @@ class ArtistDetails extends CreateItemRenderer {
     <p>Born in ${artistAndMaybeAlbums.birthdate}</p>
     ${albumString}
     `;
-    html += super.addDelete();
-    console.log("html", html);
-    return super.render(html, "update");
+    const html2 = super.render(html, "update");
+    return super.addDelete(html2);
   }
   static async getItems(artist) {
     return await findAlbumsByArtist(artist._id);
@@ -49,7 +48,7 @@ class ArtistUpdate extends CreateItemRenderer {
   render(artistData) {
     console.log("@@@@@@@@@@", artistData);
     const html = /*html*/ `
-    <label for="name">${artistData.name}</label>
+    <label for="name">Name</label>
     <input type="text" name="name" value="${artistData.name}">
     <label for="birthdate">Date of birth</label>
     <input type="date" name="birthdate" value="${artistData.birthdate}">

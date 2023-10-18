@@ -8,4 +8,10 @@ export default class Artist {
       enumerable: false,
     });
   }
+
+    verify(){
+    if (this.name && this.birthdate){return true}
+    else {return false}
+  }
+
 }
