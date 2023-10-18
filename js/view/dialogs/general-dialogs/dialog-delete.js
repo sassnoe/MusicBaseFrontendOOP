@@ -1,9 +1,5 @@
 import { deleteElement } from "../../../http.js";
 import Dialog from "./dialog-super.js";
-// import { createSomething } from "../../../main.js";
-//////////////////////////////////
-// REPLACE @@@@@@@@@@@@@@@@@@@ ///
-//////////////////////////////////
 export default class DeleteDialog extends Dialog {
   constructor(id) {
     super(id);

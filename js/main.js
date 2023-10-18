@@ -43,16 +43,16 @@ async function initApp() {
 function initView() {
   artistsList = new ListRenderer(artists, "#artists-table", ArtistRenderer, getArtists);
   console.log(artistsList);
-  artistsList.render();
+
 
   albumsList = new ListRenderer(albums, "#albums-table", AlbumRenderer, getAlbums);
-  albumsList.render();
+
 
   tracksList = new ListRenderer(tracks, "#tracks-table", TrackRenderer, getTracks);
   // console.log("track list:",tracksList);
-  tracksList.render();
 
   allLists.set("tracks", tracksList).set("albums", albumsList).set("artists", artistsList);
+  handleSearchAndFilter()
 }
 function initDialogs() {
   updateDialog = new UpdateDialog("update");
@@ -68,7 +68,7 @@ function addEventListeners(params) {
   document.querySelectorAll(".create-btn").forEach((btn) => btn.addEventListener("click", createNewClicked));
 }
 
-function handleSearchAndFilter(params) {
+function handleSearchAndFilter() {
   const searchValue = document.querySelector("#searchBar").value;
   const filterValue = document.querySelector("#tableSelect").value;
 
@@ -155,7 +155,8 @@ async function refreshList(whichOne) {
   const correctList = allLists.get(whichOne);
   if (correctList !== undefined) {
     await correctList.refreshList();
-    correctList.render();
+    // correctList.render();
+    handleSearchAndFilter()
   } else {
     console.error("Couldn't find the right list to update!!!");
   }

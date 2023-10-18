@@ -25,6 +25,7 @@ export default class CreateItemRenderer {
     <p><b>Are you ABSOLUTELY SURE that you wish to delete the ${type} ${element?.title || element.name}?</b></p>
     <input type="hidden" name="id" value="${element?.id || element._id}">
     <input type="submit" value="Yes, I want to delete this ${type} permanently">
+    <input type="button" class="button-close" value="Nah I'm good">
     </form>`;
     return html
   }

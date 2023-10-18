@@ -24,12 +24,11 @@ class AlbumDetails extends CreateItemRenderer {
 class AlbumCreate extends CreateItemRenderer {
   render() {
     const html = /*html*/ `
-    <label for="title">Title</label>
+
+    <label for="title">Album name</label>
     <input type="text" name="title">
     <label for="releaseYear">Release year</label>
     <input type="number" name="releaseYear">
-    <label for="albumName">Album name</label>
-    <input type="text" name="albumName">
     <label for="artistID">Name of artist</label>
     <select name="artistID" id="artistID"></select>
         `;

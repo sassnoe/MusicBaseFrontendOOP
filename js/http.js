@@ -130,8 +130,13 @@ async function updateElement(obj, whereToPost, id) {
 }
 
 async function deleteElement(id, whereToDelete) {
-  console.log("WHERE TO DELETE:",whereToDelete);
-  console.log("ID TO DELETE:",id);
+  console.log("WHERE TO DELETE:", whereToDelete);
+  console.log("ID TO DELETE:", id);
+  const response = await fetch(`${endpoint}/${whereToDelete}/${id}`, {
+    method: "DELETE",
+  });
+  console.log("delete response", response);
+  return response.ok
 }
 
-export { getTrackDetails, updateElement, createElement,deleteElement, getArtists, getAlbums, getTracks, searchDatabase, findAlbumsByArtist, findTracksByAlbum };
+export { getTrackDetails, updateElement, createElement, deleteElement, getArtists, getAlbums, getTracks, searchDatabase, findAlbumsByArtist, findTracksByAlbum };

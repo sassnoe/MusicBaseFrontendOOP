@@ -63,7 +63,7 @@ class ArtistUpdate extends CreateItemRenderer {
 
 class ArtistDelete extends CreateItemRenderer {
   render(artist) {
-    return super.deleteText(artist);
+    return super.deleteText(artist, "artist");
   }
 
   submit(form) {
