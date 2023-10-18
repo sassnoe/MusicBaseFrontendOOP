@@ -135,6 +135,7 @@ function updateClicked(classObj, item) {
 }
 
 function deleteClicked(where, objToDelete) {
+  let renderer = undefined
   if (where.name.includes("Album")) {
     renderer = AlbumDelete;
   } else if (where.name.includes("Track")) {
@@ -144,8 +145,9 @@ function deleteClicked(where, objToDelete) {
   } else {
     console.error("INCORRECT where THINGY (look in delete clicked)");
   }
-  console.log("this is to be deleted", clickedElement);
-  deleteDialog.render(renderer, objToDelete);
+  console.log("this is to be deleted", objToDelete);
+  if (renderer){deleteDialog.render(renderer, objToDelete);}
+  
 }
 
 async function refreshList(whichOne) {

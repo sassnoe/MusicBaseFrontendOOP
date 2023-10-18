@@ -129,4 +129,9 @@ async function updateElement(obj, whereToPost, id) {
   }
 }
 
-export { getTrackDetails, updateElement, createElement, getArtists, getAlbums, getTracks, searchDatabase, findAlbumsByArtist, findTracksByAlbum };
+async function deleteElement(id, whereToDelete) {
+  console.log("WHERE TO DELETE:",whereToDelete);
+  console.log("ID TO DELETE:",id);
+}
+
+export { getTrackDetails, updateElement, createElement,deleteElement, getArtists, getAlbums, getTracks, searchDatabase, findAlbumsByArtist, findTracksByAlbum };

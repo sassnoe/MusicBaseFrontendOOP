@@ -62,8 +62,12 @@ class ArtistUpdate extends CreateItemRenderer {
 }
 
 class ArtistDelete extends CreateItemRenderer {
-  render() {
-    const html = /*html*/ ``;
+  render(artist) {
+    return super.deleteText(artist);
+  }
+
+  submit(form) {
+    return [form.id.value, "artists"];
   }
 }
 

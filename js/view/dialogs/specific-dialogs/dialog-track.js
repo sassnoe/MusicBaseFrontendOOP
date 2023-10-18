@@ -79,8 +79,13 @@ class TrackUpdate extends CreateItemRenderer {
 }
 
 class TrackDelete extends CreateItemRenderer {
-  render() {
-    const html = /*html*/ ``;
+
+  render(track) {
+    return super.deleteText(track);
+  }
+
+  submit(form){
+    return [form.id.value, "tracks"]
   }
 }
 

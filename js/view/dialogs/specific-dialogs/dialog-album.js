@@ -69,9 +69,11 @@ class AlbumUpdate extends CreateItemRenderer {
 
 class AlbumDelete extends CreateItemRenderer {
   render(album) {
-    const html = /*html*/ `
-    <p>Are you ABSOLUTELY SURE that you wish to delete ${album.title}?</p>`;
-    return super.addDelete(html)
+    return super.deleteText(album, "album");
+  }
+
+  submit(form){
+    return [form.id.value, "albums"]
   }
 }
 

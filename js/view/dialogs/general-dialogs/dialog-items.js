@@ -18,5 +18,15 @@ export default class CreateItemRenderer {
        }
     });
   }
+
+  deleteText(element, type){
+        const html = /*html*/ `
+        <form>
+    <p><b>Are you ABSOLUTELY SURE that you wish to delete the ${type} ${element?.title || element.name}?</b></p>
+    <input type="hidden" name="id" value="${element?.id || element._id}">
+    <input type="submit" value="Yes, I want to delete this ${type} permanently">
+    </form>`;
+    return html
+  }
 }
 //  ${extraInfo == element._id ? "selected" : ""}
