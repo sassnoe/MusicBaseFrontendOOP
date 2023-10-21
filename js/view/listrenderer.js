@@ -1,8 +1,13 @@
+import { itemClicked } from "../main.js";
+
 export default class ListRenderer {
-  constructor(list, container, itemRenderer) {
-    this.list = list;
-    this.itemRenderer = new itemRenderer();
-    this.container = document.querySelector(container);
+  constructor(list, container, itemRenderer, listUpdater) {
+    this._list = list;
+    this._itemRenderer = new itemRenderer();
+    this._name = container;
+    this._container = document.querySelector(container);
+    this._tbody = this._container.querySelector("tbody");
+    this._listUpdater = listUpdater;
   }
 
   setList(list) {
@@ -18,39 +23,41 @@ export default class ListRenderer {
     this.container.innerHTML = "";
   }
 
-  render() {
-    this.clear();
+  get name() {
+    return this._name;
+  }
 
-    // create a filtered list to render
-    const filteredList = this.list.filter((item) => this.filter(item));
+  set list(newList) {
+    this._list = newList;
+  }
 
-    console.log(this.list);
-    for (const item of this.list) {
-      const html = this.itemRenderer.render(item);
-      this.container.insertAdjacentHTML("beforeend", html);
+  async refreshList() {
+    this._list = await this._listUpdater();
+  }
+  render(filteredList = this._list) {
+    console.log("FILTERED LIST:", filteredList);
+    this._tbody.innerHTML = "";
+    for (const item of filteredList) {
+      const html = this._itemRenderer.render(item);
+      this._tbody.insertAdjacentHTML("beforeend", html);
+      this._tbody.querySelector("tr:last-child").addEventListener("click", () => itemClicked(item, this._name.split("-")[0]));
     }
   }
 
-  sort(sortBy, sortDir) {
-    // if sorting by the same as previous property
-    if (sortBy === this.sortDir) {
-      // toggle sort direction
-      this.sortDir = this.sortDir === "asc" ? "desc" : "asc";
-    } else {
-      if (sortDir) {
-        this.sortDir = sortDir;
-      } else {
-        this.sortDir = "asc";
-      }
-    }
-
-    this.sortBy = sortBy;
+  search(searchValue) {
+    this._searchValue = searchValue;
+    this.render(
+      this._list.filter((entry) => {
+        return entry.title?.toLowerCase().includes(searchValue.toLowerCase()) || entry.name?.toLowerCase().includes(searchValue.toLowerCase());
+      })
+    );
   }
 
-  filter(filterProperty, filterValue) {
-    this.filterProperty = filterProperty;
-    this.filterValue = filterValue;
+  hide() {
+    this._container.parentElement.hidden = true;
+  }
 
-    this.render();
+  show() {
+    this._container.parentElement.hidden = false;
   }
 }

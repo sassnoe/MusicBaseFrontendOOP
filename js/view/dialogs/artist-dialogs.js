@@ -1,12 +1,10 @@
-export default class ArtistDialog {
+import Dialog from "../dialog-SUPER";
+
+export class ArtistDetails extends Dialog {
   constructor(id) {
-    this.dialog.id = id;
-    this.dialog = document.createElement("dialog");
-    document.querySelector("main").insertAdjacentHTML("beforeend", this.dialog);
+    super(id);
   }
-  show() {
-    this.dialog.showModal();
-  }
+
   render() {
     const html = /*html*/ ``;
   }
@@ -20,5 +18,21 @@ export default class ArtistDialog {
     });
 
     form.reset();
+  }
+}
+
+
+
+export  class ArtistCreate extends Dialog {
+
+
+  render() {
+    const html = /*html*/ `
+    <form>
+    </form>
+    `;
+  }
+  submit(form) {
+    return { name: form.name.value, birthdate: form.birthdate.value };
   }
 }

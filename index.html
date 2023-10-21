@@ -10,19 +10,23 @@
   <body>
     <header>
       <h2>MusicBase</h2>
-      <select id="searchSelect">
+      <select id="tableSelect">
         <option value="combined">All</option>
         <option value="artists">Artists</option>
         <option value="albums">Albums</option>
         <option value="tracks">Tracks</option>
       </select>
       <input type="search" id="searchBar" placeholder="Search for SOMETHING!" />
-      <button id="search-btn">Search</button>
+      
+    
+      
     </header>
 
     <main>
       <div id="top-tables-grid">
+        
         <section id="grid-container-artist">
+          <button id="create-artist-btn" class="create-btn">Create new artist</button>
           <table id="artists-table">
             <thead>
               <tr>
@@ -34,6 +38,7 @@
           </table>
         </section>
         <section id="grid-container-album">
+          <button id="create-album-btn" class="create-btn">Create new album</button>
           <table id="albums-table">
             <thead>
               <tr>
@@ -47,6 +52,7 @@
         </section>
       </div>
       <section id="grid-container-tracks">
+          <button id="create-track-btn" class="create-btn">Create new track</button>
         <table id="tracks-table">
           <thead>
             <tr>

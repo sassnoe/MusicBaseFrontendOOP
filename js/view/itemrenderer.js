@@ -1,6 +1,5 @@
 export default class ItemRenderer {
-  render(item) {
-    return `<tr>${item}</tr>`;
-    // return `<p>${item}</p>`;
+  render(item, id) {
+    return `<tr id="${id}">${item}</tr>`;
   }
 }
