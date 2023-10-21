@@ -60,7 +60,7 @@ async function getTrackDetails(trackTitle) {
     albumTitle: responseObj.map((entry) => {
       return entry.albumTitle;
     }),
-    id: responseObj[0].id
+    id: responseObj[0].id,
   }));
   return await trackInfo;
 }
@@ -100,8 +100,8 @@ async function createElement(obj, whereToPost) {
     method: "POST",
     body: JSON.stringify(elementToCreate),
     headers: {
-      "Content-Type": "application/json"
-    }
+      "Content-Type": "application/json",
+    },
   });
   console.log(response);
   return response.ok;
@@ -116,8 +116,8 @@ async function updateElement(obj, whereToPost, id) {
     method: "PUT",
     body: JSON.stringify(elementToCreate),
     headers: {
-      "Content-Type": "application/json"
-    }
+      "Content-Type": "application/json",
+    },
   });
   console.log(response);
   return response.ok;

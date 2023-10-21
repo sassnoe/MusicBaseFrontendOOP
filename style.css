@@ -11,6 +11,10 @@ h1 {
   font-size: 2em;
 }
 
+h2 {
+  text-shadow: 2px 3px 1px rgb(255, 255, 255);
+}
+
 header {
   text-align: center;
   font-size: 2em;
@@ -19,10 +23,11 @@ header {
 button {
   font-size: 0.8em;
   padding: 12px 20px;
-  background-color: rgb(162, 203, 241);
-  color: rgba(99, 81, 4, 0.884);
+  background-color: rgb(72 226 0 / 76%);
+  color: rgba(0 0 0);
   border-radius: 5px;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 
 img {
@@ -49,7 +54,8 @@ tr {
 }
 
 th {
-  border: 2px solid gainsboro;
+  border: 2px solid black;
+  background: linear-gradient(180deg, rgb(187, 187, 187), rgb(219, 219, 219));
   margin: 30px;
   padding: 15px;
 }
@@ -107,7 +113,7 @@ input[type="checkbox"] {
 #grid-container-album th,
 #grid-container-tracks th {
   margin: 30px;
-  padding: 15px;
+  padding: 10px;
 }
 
 #grid-container-artist,
@@ -120,12 +126,11 @@ input[type="checkbox"] {
 
 input,
 select {
-  background-color: rgba(193, 223, 220, 0.9);
+  background-color: rgb(255, 255, 255);
   color: rgb(17, 16, 14);
   padding: 15px;
   margin: 15px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-weight: 5000;
   font-size: 0.7em;
   width: fit-content;
 }
@@ -196,3 +201,14 @@ table th {
 footer {
   text-align: center;
 }
+
+/* Dialogs 
+.dialog {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    max-width: 600px;
+    text-align: center;
+    position: relative;
+}
+*/
