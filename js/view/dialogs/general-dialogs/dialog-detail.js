@@ -8,6 +8,7 @@ export default class DetailsDialog extends Dialog {
 
   submit(event){
     event.preventDefault()
+    // console.log("element to show in detail:", this.elementToShow._id || this.elementToShow.id);
     updateClicked(this.name, this.elementToShow);
     this.close()
   }

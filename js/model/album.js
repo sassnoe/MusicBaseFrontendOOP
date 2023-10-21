@@ -12,6 +12,9 @@ export default class Album {
   }
 
   verify() {
+    console.log("this title",this.title);
+    console.log("this release",this.releaseYear);
+    console.log("this artits ids",this.artistIds);
     if (this.title && this.releaseYear && this.artistIds) {
       return true;
     } else {

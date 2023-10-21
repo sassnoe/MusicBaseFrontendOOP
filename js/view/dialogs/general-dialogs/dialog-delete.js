@@ -11,7 +11,7 @@ export default class DeleteDialog extends Dialog {
     if (await deleteElement(this.submitObj, this.where)) {
       this.refresh(this.where);
     } else {
-      console.log("FAILURE");
+      console.error("FAILURE");
     }
   }
 }

@@ -112,8 +112,9 @@ async function createElement(obj, whereToPost) {
 }
 
 async function updateElement(obj, whereToPost, id) {
-  console.log("artist obj", obj);
+  console.log("ID ",id);
   const elementToCreate = whereToPost == "tracks" ? new Track(obj) : whereToPost == "albums" ? new Album(obj) : new Artist(obj);
+  console.log("artist obj", elementToCreate);
   if (elementToCreate.verify() && id) {
     const response = await fetch(`${endpoint}/${whereToPost}/${id}`, {
       method: "PUT",

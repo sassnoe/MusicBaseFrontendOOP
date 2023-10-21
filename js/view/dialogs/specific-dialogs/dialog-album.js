@@ -4,12 +4,13 @@ import CreateItemRenderer from "../general-dialogs/dialog-items.js";
 class AlbumDetails extends CreateItemRenderer {
   render(albumToShow) {
     let trackString = "";
-    albumToShow.tracks.forEach((track) => (trackString += `<li>${track.title} - ${track.duration}</li>`));
+    if (albumToShow.tracks.length>0)
+    { trackString = `<p>Tracks on this album:</p>`;
+      albumToShow.tracks.forEach((track) => (trackString += `<li>${track.title} - ${track.duration}</li>`));}
     const html = /*html*/ `
     <p>Title - ${albumToShow.title}</p>
     <p>Made by - ${albumToShow.artist}</p>
     <p>Released in - ${albumToShow.releaseYear}</p>
-    <p>Tracks on this album:</p>
     ${trackString}
     `;
     const html2 =super.render(html, "update");
@@ -59,7 +60,7 @@ class AlbumUpdate extends CreateItemRenderer {
     return super.render(html, "update");
   }
   submit(form) {
-    return [{ title: form.title.value, releaseYear: form.releaseYear.value, artistID: form.artistID.value }, "album"];
+    return [{ title: form.title.value, releaseYear: form.releaseYear.value, artistID: form.artistID.value }, "albums"];
   }
   fillList(artistAndAlbumArray, select, extraInfo) {
     super.fillList(artistAndAlbumArray, select.querySelector("#artistID"));

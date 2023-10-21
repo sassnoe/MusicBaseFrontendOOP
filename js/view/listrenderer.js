@@ -26,7 +26,7 @@ export default class ListRenderer {
     this._list = await this._listUpdater();
   }
   render(filteredList = this._list) {
-    console.log("FILTERED LIST:", filteredList);
+    // console.log("FILTERED LIST:", filteredList);
     this._tbody.innerHTML = "";
     for (const item of filteredList) {
       const html = this._itemRenderer.render(item);

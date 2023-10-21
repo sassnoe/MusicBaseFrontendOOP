@@ -154,9 +154,10 @@ async function refreshList(whichOne) {
   console.log("which one?", whichOne);
   const correctList = allLists.get(whichOne);
   if (correctList !== undefined) {
-    await correctList.refreshList();
-    // correctList.render();
-    handleSearchAndFilter()
+    if (whichOne =="artists"){allLists.forEach(async entry => {await entry.refreshList(); handleSearchAndFilter()})}
+    else {    await correctList.refreshList();
+    handleSearchAndFilter();}
+
   } else {
     console.error("Couldn't find the right list to update!!!");
   }

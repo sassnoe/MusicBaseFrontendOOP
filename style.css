@@ -43,7 +43,6 @@ table {
   border: 2px solid gainsboro;
   padding: 0;
 }
-
 tr {
   margin: 20px;
 }
@@ -195,4 +194,10 @@ table th {
 
 footer {
   text-align: center;
+}
+
+tr:hover {
+  cursor: pointer;
+  /* box-shadow:  4px 4px 4px 4px black; */
+  box-shadow:  2px 2px 2px 2px black;
 }
