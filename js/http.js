@@ -87,6 +87,7 @@ async function getTracks() {
   const response = await fetch(`${endpoint}/tracks`);
   const objects = await response.json();
   console.log("RAW TRACKS", objects);
+  console.log(objects);
   const trackList = objects.map((jsonObj) => new Track(jsonObj));
 
   return trackList;
