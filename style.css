@@ -58,7 +58,6 @@ table {
   overflow-y: auto;
   padding: 0;
 }
-
 tr {
   margin: 20px;
 }
@@ -302,14 +301,3 @@ table th {
 footer {
   text-align: center;
 }
-
-/* Dialogs 
-.dialog {
-    background-color: #fff;
-    padding: 20px;
-    border: 1px solid #ccc;
-    max-width: 600px;
-    text-align: center;
-    position: relative;
-}
-*/

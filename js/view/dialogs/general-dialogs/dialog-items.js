@@ -8,8 +8,8 @@ export default class CreateItemRenderer {
     </form>`;
   }
 
-  addDelete() {
-    return `<input type="button" class="button-delete" value="Delete"></input>`;
+  addDelete(html) {
+    return `${html}<input type="button" class="button-delete" value="Delete"></input>`;
   }
 
   fillList(elementList, select, selectThisID) {
@@ -20,6 +20,17 @@ export default class CreateItemRenderer {
         select.querySelector("option:last-child").selected = true;
       }
     });
+  }
+
+  deleteText(element, type) {
+    const html = /*html*/ `
+        <form>
+    <p><b>Are you ABSOLUTELY SURE that you wish to delete the ${type} ${element?.title || element.name}?</b></p>
+    <input type="hidden" name="id" value="${element?.id || element._id}">
+    <input type="submit" value="Yes, I want to delete this ${type} permanently">
+    <input type="button" class="button-close" value="Nah I'm good">
+    </form>`;
+    return html;
   }
 }
 //  ${extraInfo == element._id ? "selected" : ""}

@@ -43,16 +43,16 @@ async function initApp() {
 function initView() {
   artistsList = new ListRenderer(artists, "#artists-table", ArtistRenderer, getArtists);
   console.log(artistsList);
-  artistsList.render();
+
 
   albumsList = new ListRenderer(albums, "#albums-table", AlbumRenderer, getAlbums);
-  albumsList.render();
+
 
   tracksList = new ListRenderer(tracks, "#tracks-table", TrackRenderer, getTracks);
   // console.log("track list:",tracksList);
-  tracksList.render();
 
   allLists.set("tracks", tracksList).set("albums", albumsList).set("artists", artistsList);
+  handleSearchAndFilter()
 }
 function initDialogs() {
   updateDialog = new UpdateDialog("update");
@@ -62,12 +62,13 @@ function initDialogs() {
 }
 
 function addEventListeners(params) {
+  document.querySelector("#searchBar").addEventListener("keyup", handleSearchAndFilter);
   document.querySelector("#searchBar").addEventListener("keydown", handleSearchAndFilter);
   document.querySelector("#tableSelect").addEventListener("change", handleSearchAndFilter);
   document.querySelectorAll(".create-btn").forEach((btn) => btn.addEventListener("click", createNewClicked));
 }
 
-function handleSearchAndFilter(params) {
+function handleSearchAndFilter() {
   const searchValue = document.querySelector("#searchBar").value;
   const filterValue = document.querySelector("#tableSelect").value;
 
@@ -91,7 +92,7 @@ async function itemClicked(item, name) {
 
   console.log(detailRenderer);
   let matchingInfo = await detailDialog.getAssociatedEntries(detailRenderer, item);
-  console.log("FOUND?", matchingInfo.length);
+  console.log("FOUND?", matchingInfo);
   if (matchingInfo.length == 0) {
     matchingInfo = item;
   }
@@ -107,10 +108,10 @@ function createNewClicked(event) {
     renderer = ArtistCreate;
   } else if (thingToCreate == "track") {
     renderer = TrackCreate;
-    additionalList = [artists, albums];
+    additionalList = [artistsList.list, albumsList.list];
   } else {
     renderer = AlbumCreate;
-    additionalList = artists;
+    additionalList = artistsList.list;
   }
 
   createDialog.render(renderer, undefined, additionalList);
@@ -134,6 +135,7 @@ function updateClicked(classObj, item) {
 }
 
 function deleteClicked(where, objToDelete) {
+  let renderer = undefined
   if (where.name.includes("Album")) {
     renderer = AlbumDelete;
   } else if (where.name.includes("Track")) {
@@ -143,16 +145,19 @@ function deleteClicked(where, objToDelete) {
   } else {
     console.error("INCORRECT where THINGY (look in delete clicked)");
   }
-  console.log("this is to be deleted", clickedElement);
-  deleteDialog.render(renderer, objToDelete);
+  console.log("this is to be deleted", objToDelete);
+  if (renderer){deleteDialog.render(renderer, objToDelete);}
+  
 }
 
 async function refreshList(whichOne) {
   console.log("which one?", whichOne);
   const correctList = allLists.get(whichOne);
   if (correctList !== undefined) {
-    await correctList.refreshList();
-    correctList.render();
+    if (whichOne =="artists"){allLists.forEach(async entry => {await entry.refreshList(); handleSearchAndFilter()})}
+    else {    await correctList.refreshList();
+    handleSearchAndFilter();}
+
   } else {
     console.error("Couldn't find the right list to update!!!");
   }

@@ -4,16 +4,18 @@ import CreateItemRenderer from "../general-dialogs/dialog-items.js";
 class AlbumDetails extends CreateItemRenderer {
   render(albumToShow) {
     let trackString = "";
-    albumToShow.tracks.forEach((track) => (trackString += `<li>${track.title} - ${track.duration}</li>`));
+    if (albumToShow.tracks.length > 0) {
+      trackString = `<p>Tracks on this album:</p>`;
+      albumToShow.tracks.forEach((track) => (trackString += `<li>${track.title} - ${track.duration}</li>`));
+    }
     const html = /*html*/ `
     <h3>Album title - ${albumToShow.title}</h3>
     <p>Made by - ${albumToShow.artist}</p>
     <p>Released in - ${albumToShow.releaseYear}</p>
-    <p>Tracks on this album:</p>
     ${trackString}
     `;
-
-    return super.render(html, "update");
+    const html2 = super.render(html, "update");
+    return super.addDelete(html2);
   }
 
   static async getItems(album) {
@@ -24,12 +26,11 @@ class AlbumDetails extends CreateItemRenderer {
 class AlbumCreate extends CreateItemRenderer {
   render() {
     const html = /*html*/ `
-    <label for="title">Title</label>
+
+    <label for="title">Album name</label>
     <input type="text" name="title">
     <label for="releaseYear">Release year</label>
     <input type="number" name="releaseYear">
-    <label for="albumName">Album name</label>
-    <input type="text" name="albumName">
     <label for="artistID">Name of artist</label>
     <select name="artistID" id="artistID"></select>
         `;
@@ -61,7 +62,7 @@ class AlbumUpdate extends CreateItemRenderer {
     return super.render(html, "update");
   }
   submit(form) {
-    return [{ title: form.title.value, releaseYear: form.releaseYear.value, artistID: form.artistID.value }, "album"];
+    return [{ title: form.title.value, releaseYear: form.releaseYear.value, artistID: form.artistID.value }, "albums"];
   }
   fillList(artistAndAlbumArray, select, extraInfo) {
     super.fillList(artistAndAlbumArray, select.querySelector("#artistID"));
@@ -69,8 +70,12 @@ class AlbumUpdate extends CreateItemRenderer {
 }
 
 class AlbumDelete extends CreateItemRenderer {
-  render() {
-    const html = /*html*/ ``;
+  render(album) {
+    return super.deleteText(album, "album");
+  }
+
+  submit(form) {
+    return [form.id.value, "albums"];
   }
 }
 
