@@ -12,6 +12,7 @@ export default class Dialog {
 
   close() {
     this.dialog.close();
+    //
   }
 
   render(detailRenderer, elementToShow, listToInclude) {
