@@ -6,12 +6,13 @@ class AlbumDetails extends CreateItemRenderer {
     let trackString = "";
     albumToShow.tracks.forEach((track) => (trackString += `<li>${track.title} - ${track.duration}</li>`));
     const html = /*html*/ `
-    <p>Title - ${albumToShow.title}</p>
+    <h3>Album title - ${albumToShow.title}</h3>
     <p>Made by - ${albumToShow.artist}</p>
     <p>Released in - ${albumToShow.releaseYear}</p>
     <p>Tracks on this album:</p>
     ${trackString}
     `;
+
     return super.render(html, "update");
   }
 

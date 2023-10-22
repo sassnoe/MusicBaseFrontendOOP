@@ -21,45 +21,53 @@
 
     <main>
       <div id="top-tables-grid">
-        <section id="grid-container-artist">
+        <div id="artist-div">
           <button id="create-artist-btn" class="create-btn">Create new artist</button>
-          <table id="artists-table">
-            <thead>
-              <tr>
-                <th>Artist name</th>
-                <th>Birthdate</th>
-              </tr>
-            </thead>
-            <tbody id="artists-data"></tbody>
-          </table>
-        </section>
-        <section id="grid-container-album">
+          <section id="grid-container-artist">
+            <table id="artists-table">
+              <thead>
+                <tr>
+                  <th>Artist name</th>
+                  <th>Birthdate</th>
+                </tr>
+              </thead>
+              <tbody id="artists-data"></tbody>
+            </table>
+          </section>
+        </div>
+
+        <div id="album-div">
           <button id="create-album-btn" class="create-btn">Create new album</button>
-          <table id="albums-table">
-            <thead>
-              <tr>
-                <th>Album name</th>
-                <th>Artist</th>
-                <th>Release year</th>
-              </tr>
-            </thead>
-            <tbody id="albums-data"></tbody>
-          </table>
-        </section>
+          <section id="grid-container-album">
+            <table id="albums-table">
+              <thead>
+                <tr>
+                  <th>Album name</th>
+                  <th>Artist</th>
+                  <th>Release year</th>
+                </tr>
+              </thead>
+              <tbody id="albums-data"></tbody>
+            </table>
+          </section>
+        </div>
+
+        <div id="tracks-div">
+          <button id="create-track-btn" class="create-btn">Create new track</button>
+          <section id="grid-container-tracks">
+            <table id="tracks-table">
+              <thead>
+                <tr>
+                  <th>Track title</th>
+                  <th>Artist</th>
+                  <th>Duration</th>
+                </tr>
+              </thead>
+              <tbody id="tracks-data"></tbody>
+            </table>
+          </section>
+        </div>
       </div>
-      <section id="grid-container-tracks">
-        <button id="create-track-btn" class="create-btn">Create new track</button>
-        <table id="tracks-table">
-          <thead>
-            <tr>
-              <th>Track title</th>
-              <th>Artist</th>
-              <th>Duration</th>
-            </tr>
-          </thead>
-          <tbody id="tracks-data"></tbody>
-        </table>
-      </section>
     </main>
   </body>
   <footer>Made by CodeQuest</footer>
