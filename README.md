@@ -8,7 +8,7 @@ Det er også muligt som bruger, at tilføje nye kunstnere, albums og tracks, sam
 
 ## Pages
 
-[Frontend Pages](https://sassnoe.github.io/MusicBaseFrontend/)
+[Frontend Pages](https://sassnoe.github.io/MusicBaseFrontendOOP/)
 
 [Backend Repository](https://github.com/buan0001/MusicBaseBackend)
 
