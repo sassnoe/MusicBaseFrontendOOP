@@ -11,7 +11,7 @@ class ArtistDetails extends CreateItemRenderer {
       artistAndMaybeAlbums.forEach((entry) => (albumString += `<li>${entry.title} - released in ${entry.releaseYear}</li>`));
     }
     let html = /*html*/ `
-    <p>${artistAndMaybeAlbums.name}</p>
+    <h2>${artistAndMaybeAlbums.name}</h2>
     <p>Born in ${artistAndMaybeAlbums.birthdate}</p>
     ${albumString}
     `;

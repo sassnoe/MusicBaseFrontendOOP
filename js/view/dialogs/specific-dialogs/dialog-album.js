@@ -4,17 +4,18 @@ import CreateItemRenderer from "../general-dialogs/dialog-items.js";
 class AlbumDetails extends CreateItemRenderer {
   render(albumToShow) {
     let trackString = "";
-    if (albumToShow.tracks.length>0)
-    { trackString = `<p>Tracks on this album:</p>`;
-      albumToShow.tracks.forEach((track) => (trackString += `<li>${track.title} - ${track.duration}</li>`));}
+    if (albumToShow.tracks.length > 0) {
+      trackString = `<p>Tracks on this album:</p>`;
+      albumToShow.tracks.forEach((track) => (trackString += `<li>${track.title} - ${track.duration}</li>`));
+    }
     const html = /*html*/ `
-    <p>Title - ${albumToShow.title}</p>
+    <h3>Album title - ${albumToShow.title}</h3>
     <p>Made by - ${albumToShow.artist}</p>
     <p>Released in - ${albumToShow.releaseYear}</p>
     ${trackString}
     `;
-    const html2 =super.render(html, "update");
-    return super.addDelete(html2)
+    const html2 = super.render(html, "update");
+    return super.addDelete(html2);
   }
 
   static async getItems(album) {
@@ -73,8 +74,8 @@ class AlbumDelete extends CreateItemRenderer {
     return super.deleteText(album, "album");
   }
 
-  submit(form){
-    return [form.id.value, "albums"]
+  submit(form) {
+    return [form.id.value, "albums"];
   }
 }
 

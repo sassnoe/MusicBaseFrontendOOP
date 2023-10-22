@@ -11,6 +11,21 @@ h1 {
   font-size: 2em;
 }
 
+h2 {
+  text-shadow: 2px 3px 1px rgb(255, 255, 255);
+}
+
+h3 {
+  color: rgb(0, 0, 0);
+  font-size: 1.5em;
+  text-shadow: 1px 2px 2px rgb(255, 255, 255);
+  margin: 5px;
+}
+
+p {
+  margin: 10px;
+}
+
 header {
   text-align: center;
   font-size: 2em;
@@ -19,10 +34,11 @@ header {
 button {
   font-size: 0.8em;
   padding: 12px 20px;
-  background-color: rgb(162, 203, 241);
-  color: rgba(99, 81, 4, 0.884);
+  background-color: rgb(72 226 0 / 76%);
+  color: rgba(0 0 0);
   border-radius: 5px;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 
 img {
@@ -37,10 +53,9 @@ table {
   width: 100%;
   font-size: 1.2em;
   margin: 0 auto;
-  border-collapse: collapse;
+  border-collapse: separate;
   max-height: 400px;
   overflow-y: auto;
-  border: 2px solid gainsboro;
   padding: 0;
 }
 tr {
@@ -48,7 +63,8 @@ tr {
 }
 
 th {
-  border: 2px solid gainsboro;
+  border: 2px solid black;
+  background: linear-gradient(180deg, rgb(187, 187, 187), rgb(219, 219, 219));
   margin: 30px;
   padding: 15px;
 }
@@ -91,6 +107,42 @@ input[type="checkbox"] {
   color: red;
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+form li {
+  list-style-type: square;
+  margin: 5px;
+}
+
+form h2 {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+  font-size: 3em;
+}
+
+dialog {
+  background-image: linear-gradient(30deg, rgb(109, 178, 243), rgb(241, 79, 79));
+  padding: 20px;
+  border: 3px solid #000000;
+  border-radius: 30px;
+  max-width: 600px;
+  text-align: center;
+  position: relative;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
+}
+
 /* Add the new CSS for the sections */
 #grid-container-artist thead,
 #grid-container-album thead,
@@ -106,7 +158,7 @@ input[type="checkbox"] {
 #grid-container-album th,
 #grid-container-tracks th {
   margin: 30px;
-  padding: 15px;
+  padding: 10px;
 }
 
 #grid-container-artist,
@@ -119,14 +171,76 @@ input[type="checkbox"] {
 
 input,
 select {
-  background-color: rgba(193, 223, 220, 0.9);
+  background-color: rgb(255, 255, 255);
   color: rgb(17, 16, 14);
   padding: 15px;
   margin: 15px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-weight: 5000;
   font-size: 0.7em;
   width: fit-content;
+}
+
+.button-delete {
+  background-color: rgb(246, 72, 72);
+  color: rgb(17, 16, 14);
+  padding: 15px;
+  margin: 15px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1em;
+  width: 100px;
+  border: 2px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button-update {
+  background-color: rgb(97 235 255);
+  color: rgb(17, 16, 14);
+  padding: 15px;
+  margin: 15px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1em;
+  width: 100px;
+  border: 2px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button-close {
+  background-color: rgb(158 158 158);
+  color: rgb(17, 16, 14);
+  padding: 15px;
+  margin: 15px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1em;
+  width: 100px;
+  border: 2px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#artist-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+#album-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+#tracks-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
 }
 
 /* WebKit (Chrome, Safari) scrollbar styling */
@@ -165,11 +279,13 @@ select {
 
 /* Just a little extra niceness */
 table th {
+  position: sticky;
+  top: 0;
   width: 25%;
 }
 
 #top-tables-grid {
-  display: grid;
+  display: block;
   grid-template-columns: 1fr 1fr;
 
   align-content: center;
@@ -182,22 +298,6 @@ table th {
   width: 75%;
 }
 
-#grid-container-tracks {
-  width: 80%;
-  align-content: center;
-  align-items: center;
-  justify-content: center;
-  justify-items: center;
-  justify-self: center;
-  margin-left: 10%;
-}
-
 footer {
   text-align: center;
-}
-
-tr:hover {
-  cursor: pointer;
-  /* box-shadow:  4px 4px 4px 4px black; */
-  box-shadow:  2px 2px 2px 2px black;
 }
