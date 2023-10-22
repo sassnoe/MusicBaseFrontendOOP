@@ -1,10 +1,10 @@
-// const endpoint = `https://codequest-node.azurewebsites.net/`;
 import Album from "./model/album.js";
 import Artist from "./model/artist.js";
 import Track from "./model/track.js";
 
+const endpoint = `https://codequest-node.azurewebsites.net/`;
 const port = 3333;
-const endpoint = `http://localhost:${port}`;
+// const endpoint = `http://localhost:${port}`;
 
 async function searchDatabase(whereToSearch, searchValue) {
   const response = await fetch(`${endpoint}/${whereToSearch}/search?q=${searchValue}`);

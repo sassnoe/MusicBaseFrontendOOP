@@ -44,15 +44,13 @@ function initView() {
   artistsList = new ListRenderer(artists, "#artists-table", ArtistRenderer, getArtists);
   console.log(artistsList);
 
-
   albumsList = new ListRenderer(albums, "#albums-table", AlbumRenderer, getAlbums);
-
 
   tracksList = new ListRenderer(tracks, "#tracks-table", TrackRenderer, getTracks);
   // console.log("track list:",tracksList);
 
   allLists.set("tracks", tracksList).set("albums", albumsList).set("artists", artistsList);
-  handleSearchAndFilter()
+  handleSearchAndFilter();
 }
 function initDialogs() {
   updateDialog = new UpdateDialog("update");
@@ -135,7 +133,7 @@ function updateClicked(classObj, item) {
 }
 
 function deleteClicked(where, objToDelete) {
-  let renderer = undefined
+  let renderer = undefined;
   if (where.name.includes("Album")) {
     renderer = AlbumDelete;
   } else if (where.name.includes("Track")) {
@@ -146,18 +144,24 @@ function deleteClicked(where, objToDelete) {
     console.error("INCORRECT where THINGY (look in delete clicked)");
   }
   console.log("this is to be deleted", objToDelete);
-  if (renderer){deleteDialog.render(renderer, objToDelete);}
-  
+  if (renderer) {
+    deleteDialog.render(renderer, objToDelete);
+  }
 }
 
 async function refreshList(whichOne) {
   console.log("which one?", whichOne);
   const correctList = allLists.get(whichOne);
   if (correctList !== undefined) {
-    if (whichOne =="artists"){allLists.forEach(async entry => {await entry.refreshList(); handleSearchAndFilter()})}
-    else {    await correctList.refreshList();
-    handleSearchAndFilter();}
-
+    if (whichOne == "artists") {
+      allLists.forEach(async (entry) => {
+        await entry.refreshList();
+        handleSearchAndFilter();
+      });
+    } else {
+      await correctList.refreshList();
+      handleSearchAndFilter();
+    }
   } else {
     console.error("Couldn't find the right list to update!!!");
   }
