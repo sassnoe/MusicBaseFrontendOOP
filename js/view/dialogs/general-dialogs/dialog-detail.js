@@ -1,4 +1,4 @@
-import Dialog from "./dialog-super.js";
+import Dialog from "./dialog-SUPER.js";
 import { updateClicked } from "../../../main.js";
 
 export default class DetailsDialog extends Dialog {
