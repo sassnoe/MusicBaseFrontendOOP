@@ -1,4 +1,4 @@
-import Dialog from "./dialog-super.js";
+import Dialog from "./dialog-SUPER.js";
 import { createElement } from "../../../http.js";
 // import {}
 
