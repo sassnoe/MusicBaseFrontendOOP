@@ -21,13 +21,14 @@ export default class Dialog {
     this.elementToShow = elementToShow;
     this.detailRenderer = new detailRenderer();
     const html = this.detailRenderer.render(elementToShow);
+    // console.log("html to show",html);
     this.dialog.innerHTML = html;
     if (listToInclude) {
       this.detailRenderer.fillList(listToInclude, this.dialog, elementToShow);
     }
-    this.dialog.querySelector(".button-close").addEventListener("click", this.close.bind(this));
-    this.dialog.querySelector("form").addEventListener("submit", this.submit.bind(this));
-    this.dialog.querySelector(".button-delete")?.addEventListener("click", () => deleteClicked(this.name, this.elementToShow));
+    this.dialog.querySelector(".button-close")?.addEventListener("click", this.close.bind(this));
+    this.dialog.querySelector("form")?.addEventListener("submit", this.submit.bind(this));
+    this.dialog.querySelector(".button-delete")?.addEventListener("click", () => {this.close(); deleteClicked(this.name, this.elementToShow)});
     this.show();
   }
 
@@ -36,7 +37,7 @@ export default class Dialog {
   // }
 
   submit(event) {
-    console.log("THIS DIALOG", this.dialog);
+    // console.log("THIS DIALOG", this.dialog);
     event.preventDefault();
     this.form = event.target;
     [this.submitObj, this.where] = this.detailRenderer.submit(this.form);
