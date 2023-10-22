@@ -60,7 +60,7 @@ async function getTrackDetails(trackTitle) {
     albumTitle: responseObj.map((entry) => {
       return entry.albumTitle;
     }),
-    id: responseObj[0].id
+    id: responseObj[0].id,
   }));
   return trackInfo;
 }
@@ -87,6 +87,7 @@ async function getTracks() {
   const response = await fetch(`${endpoint}/tracks`);
   const objects = await response.json();
   console.log("RAW TRACKS", objects);
+  console.log(objects);
   const trackList = objects.map((jsonObj) => new Track(jsonObj));
 
   return trackList;
@@ -112,7 +113,7 @@ async function createElement(obj, whereToPost) {
 }
 
 async function updateElement(obj, whereToPost, id) {
-  console.log("ID ",id);
+  console.log("ID ", id);
   const elementToCreate = whereToPost == "tracks" ? new Track(obj) : whereToPost == "albums" ? new Album(obj) : new Artist(obj);
   console.log("artist obj", elementToCreate);
   if (elementToCreate.verify() && id) {
@@ -137,7 +138,7 @@ async function deleteElement(id, whereToDelete) {
     method: "DELETE",
   });
   console.log("delete response", response);
-  return response.ok
+  return response.ok;
 }
 
 export { getTrackDetails, updateElement, createElement, deleteElement, getArtists, getAlbums, getTracks, searchDatabase, findAlbumsByArtist, findTracksByAlbum };
