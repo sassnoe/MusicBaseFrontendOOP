@@ -1,5 +1,5 @@
 import { deleteElement } from "../../../http.js";
-import Dialog from "./dialog-SUPER.js";
+import Dialog from "./dialog-super.js";
 export default class DeleteDialog extends Dialog {
   constructor(id) {
     super(id);

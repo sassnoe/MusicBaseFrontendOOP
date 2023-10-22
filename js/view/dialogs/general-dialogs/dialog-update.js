@@ -1,4 +1,4 @@
-import Dialog from "./dialog-SUPER.js";
+import Dialog from "./dialog-super.js";
 import { updateElement } from "../../../http.js";
 
 // REPLACE @@@@@@@@@@@@@@@@@@@
