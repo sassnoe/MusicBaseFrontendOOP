@@ -2,9 +2,9 @@ import Album from "./model/album.js";
 import Artist from "./model/artist.js";
 import Track from "./model/track.js";
 
-const endpoint = `https://codequest-node.azurewebsites.net/`;
-// const port = 3333;
-// const endpoint = `http://localhost:${port}`;
+// const endpoint = `https://codequest-node.azurewebsites.net/`;
+const port = 3333;
+const endpoint = `http://localhost:${port}`;
 
 async function searchDatabase(whereToSearch, searchValue) {
   const response = await fetch(`${endpoint}/${whereToSearch}/search?q=${searchValue}`);
@@ -70,21 +70,23 @@ async function getArtists() {
   const objects = await response.json();
   console.log("RAW ARTISTS", objects);
   //   console.log(req);
-  const artistsList = objects.map((jsonObj) => new Artist(jsonObj));
-  return artistsList;
+  if (!objects.errno){  const artistsList = objects.map((jsonObj) => new Artist(jsonObj));
+    return artistsList;}
+
 }
 
 async function getAlbums() {
   const response = await fetch(`${endpoint}/albums`);
   const objects = await response.json();
   console.log("RAW ALBUMS", objects);
-  const albumsList = objects.map((jsonObj) => new Album(jsonObj));
-  // console.log(albumsList);
-  return albumsList;
-}
+  if (!objects.errno){  const albumsList = objects?.map((jsonObj) => new Album(jsonObj));
+    // console.log(albumsList);
+    return albumsList;}
 
-async function getTracks() {
-  const response = await fetch(`${endpoint}/tracks`);
+}
+// NU MED PAGINERING - TEST!
+async function getTracks(page, limit) {
+  const response = await fetch(`${endpoint}/tracks/page?page=${page}&limit=${limit}`);
   const objects = await response.json();
   console.log("RAW TRACKS", objects);
   console.log(objects);
@@ -92,6 +94,15 @@ async function getTracks() {
 
   return trackList;
 }
+// async function getTracks() {
+//   const response = await fetch(`${endpoint}/tracks`);
+//   const objects = await response.json();
+//   console.log("RAW TRACKS", objects);
+//   console.log(objects);
+//   const trackList = objects.map((jsonObj) => new Track(jsonObj));
+
+//   return trackList;
+// }
 
 async function createElement(obj, whereToPost) {
   console.log("obj to create", obj);

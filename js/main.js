@@ -1,5 +1,6 @@
 import { getArtists, getAlbums, getTracks } from "./http.js";
-import ListRenderer from "./view/listrenderer.js";
+// import ListRenderer from "./view/listrenderer.js";
+import Paginator from "./Paginator.js";
 import ArtistRenderer from "./view/rendererArtist.js";
 import AlbumRenderer from "./view/rendererAlbum.js";
 import TrackRenderer from "./view/rendererTracks.js";
@@ -41,16 +42,19 @@ async function initApp() {
 }
 
 function initView() {
-  artistsList = new ListRenderer(artists, "#artists-table", ArtistRenderer, getArtists);
-  console.log(artistsList);
+  // artistsList = new ListRenderer(artists, "#artists-table", ArtistRenderer, getArtists);
+  // console.log(artistsList);
 
-  albumsList = new ListRenderer(albums, "#albums-table", AlbumRenderer, getAlbums);
+  // albumsList = new ListRenderer(albums, "#albums-table", AlbumRenderer, getAlbums);
 
-  tracksList = new ListRenderer(tracks, "#tracks-table", TrackRenderer, getTracks);
+  tracksList = new Paginator(tracks, "#tracks-table", TrackRenderer, getTracks, "#track-pagination", "#track-limit");
+  // tracksList = new ListRenderer(tracks, "#tracks-table", TrackRenderer, getTracks);
+  tracksList.render()
+  tracksList.createOptions()
   // console.log("track list:",tracksList);
 
-  allLists.set("tracks", tracksList).set("albums", albumsList).set("artists", artistsList);
-  handleSearchAndFilter();
+  // allLists.set("tracks", tracksList).set("albums", albumsList).set("artists", artistsList);
+  // handleSearchAndFilter();
 }
 function initDialogs() {
   updateDialog = new UpdateDialog("update");

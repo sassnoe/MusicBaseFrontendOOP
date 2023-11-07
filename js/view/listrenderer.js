@@ -10,14 +10,6 @@ export default class ListRenderer {
     this._listUpdater = listUpdater;
   }
 
-  setList(list) {
-    this.list = list.map((item) => new this.itemRenderer(item));
-
-    const sortBy = this.sortBy;
-    this.sortBy = undefined;
-
-    this.sort(sortBy, this.sortDir);
-  }
 
   clear() {
     this.container.innerHTML = "";
