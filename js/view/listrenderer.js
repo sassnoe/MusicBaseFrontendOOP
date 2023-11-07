@@ -4,14 +4,14 @@ export default class ListRenderer {
   constructor(list, container, itemRenderer, listUpdater) {
     this._list = list;
     this.itemRenderer = new itemRenderer();
-    this.name = container;
+    this._name = container;
     this.container = document.querySelector(container);
     this.tbody = this.container.querySelector("tbody");
     this.listUpdater = listUpdater;
   }
 
   get name() {
-    return this.name;
+    return this._name;
   }
 
   set list(newList) {

@@ -48,9 +48,12 @@ function initView() {
   // albumsList = new ListRenderer(albums, "#albums-table", AlbumRenderer, getAlbums);
 
   tracksList = new Paginator(tracks, "#tracks-table", TrackRenderer, getTracks, "#track-pagination", "#track-limit");
+  document.querySelector("#track-limit").addEventListener("change", (event) => {
+    tracksList.createOptionsAndApply();
+  });
   // tracksList = new ListRenderer(tracks, "#tracks-table", TrackRenderer, getTracks);
-  tracksList.render()
-  tracksList.createOptions()
+  // tracksList.paginate();
+  tracksList.createOptionsAndApply();
   // console.log("track list:",tracksList);
 
   // allLists.set("tracks", tracksList).set("albums", albumsList).set("artists", artistsList);
