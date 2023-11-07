@@ -3,45 +3,39 @@ import { itemClicked } from "../main.js";
 export default class ListRenderer {
   constructor(list, container, itemRenderer, listUpdater) {
     this._list = list;
-    this._itemRenderer = new itemRenderer();
-    this._name = container;
-    this._container = document.querySelector(container);
-    this._tbody = this._container.querySelector("tbody");
-    this._listUpdater = listUpdater;
-  }
-
-
-  clear() {
-    this.container.innerHTML = "";
+    this.itemRenderer = new itemRenderer();
+    this.name = container;
+    this.container = document.querySelector(container);
+    this.tbody = this.container.querySelector("tbody");
+    this.listUpdater = listUpdater;
   }
 
   get name() {
-    return this._name;
+    return this.name;
   }
 
   set list(newList) {
     this._list = newList;
   }
 
-  get list(){
-    return this._list
+  get list() {
+    return this._list;
   }
 
   async refreshList() {
-    this._list = await this._listUpdater();
+    this._list = await this.listUpdater();
   }
+
   render(filteredList = this._list) {
-    // console.log("FILTERED LIST:", filteredList);
-    this._tbody.innerHTML = "";
+    this.tbody.innerHTML = "";
     for (const item of filteredList) {
-      const html = this._itemRenderer.render(item);
-      this._tbody.insertAdjacentHTML("beforeend", html);
-      this._tbody.querySelector("tr:last-child").addEventListener("click", () => itemClicked(item, this._name.split("-")[0]));
+      const html = this.itemRenderer.render(item);
+      this.tbody.insertAdjacentHTML("beforeend", html);
+      this.tbody.querySelector("tr:last-child").addEventListener("click", () => itemClicked(item, this.name.split("-")[0]));
     }
   }
 
   search(searchValue) {
-    this._searchValue = searchValue;
     this.render(
       this._list.filter((entry) => {
         return entry.title?.toLowerCase().includes(searchValue.toLowerCase()) || entry.name?.toLowerCase().includes(searchValue.toLowerCase());
@@ -50,10 +44,14 @@ export default class ListRenderer {
   }
 
   hide() {
-    this._container.parentElement.hidden = true;
+    this.container.parentElement.hidden = true;
   }
 
   show() {
-    this._container.parentElement.hidden = false;
+    this.container.parentElement.hidden = false;
   }
+
+  // clear() {
+  //   this.container.innerHTML = "";
+  // }
 }

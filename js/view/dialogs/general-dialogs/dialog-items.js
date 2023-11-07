@@ -33,4 +33,3 @@ export default class CreateItemRenderer {
     return html;
   }
 }
-//  ${extraInfo == element._id ? "selected" : ""}
